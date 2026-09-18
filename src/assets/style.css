@@ -1506,38 +1506,47 @@ section.rs.revealed > * {
   container-type: inline-size;
 }
 
-/* Content rides above the wordmark. */
-.footer-grid,
-.fclose,
-.footer-bottom {
-  position: relative;
-  z-index: 1;
-}
-
-/* The house name as architecture, sitting behind the closing rows.
-   "Sundarbans" set in the display face with 0.06em tracking measures 7.23x its
-   own font-size, so 13cqi fills 94% of the container — big enough to read as
-   oversized type, with enough margin that the leading and trailing S never
-   clip, at any width and even if the webfont falls back. */
+/* The house name as foreground architecture — a link home, each letter fires
+   up in gold under the cursor (see .wm-char). Sized off the content grid
+   (container) rather than the viewport so the whole word stays on screen at
+   every width. */
 .footer-wordmark {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0.24em;
-  z-index: 0;
-  pointer-events: none;
+  display: block;
+  position: relative;
+  z-index: 2;
   user-select: none;
   white-space: nowrap;
   text-align: center;
   font-family: 'Samarkan', var(--font-display);
   font-weight: 400;
-  font-size: 16cqi;
+  font-size: 20cqi;
   letter-spacing: 0;
   line-height: 1;
-  /* The script face is thinner and warmer than Cinzel, so it needs a few more
-     points to read as architecture behind the colophon — still firmly below
-     the content, but no longer a silhouette of the black ground. */
-  color: #1b1611;
+  /* A front-facing brand line, so a touch more presence than the old
+     background silhouette — still quiet, until a letter is lit. */
+  color: #2a2115;
+  text-decoration: none;
+  margin-bottom: clamp(1.5rem, 3vw, 2.75rem);
+}
+
+.wm-char {
+  display: inline-block;
+  transition:
+    color 260ms var(--ease-editorial),
+    text-shadow 260ms var(--ease-editorial);
+}
+
+.footer-wordmark .wm-char:hover {
+  color: #f8b84e;
+  text-shadow:
+    0 0 12px rgba(248, 184, 78, 0.5),
+    0 0 36px rgba(248, 184, 78, 0.22);
+}
+
+.footer-wordmark:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: -8px;
+  border-radius: 4px;
 }
 
 /* ── Grid: a wide brand block, then three narrow columns ───────────── */
@@ -1552,54 +1561,28 @@ section.rs.revealed > * {
   max-width: 30rem;
 }
 
-.flogo {
+/* ── Brand: the mark with the name beside it ───────────────────────── */
+.fbrand-line {
   display: flex;
   align-items: center;
   gap: 0.85rem;
   margin-bottom: 1.1rem;
 }
 
-/* Same engraved-seal treatment as the rail crest: clip the white square edge
-   of the JPEG, ring it with a single antique-gold hairline. */
-.flogo-ring {
+/* The mark is already a transparent gold glyph — no ring to clip it. */
+.flogo-svg {
   width: 46px;
   height: 46px;
   flex-shrink: 0;
-  border-radius: 50%;
-  border: 1px solid var(--color-gold-muted);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.flogo-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-  transform: scale(1.08);
-}
-
-.flogo-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.25;
+  opacity: 0.95;
 }
 
 .fbrand-name {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: 0.12em;
+  font-size: 1.15rem;
+  letter-spacing: 0.06em;
   color: var(--text);
-}
-
-.fbrand-sub {
-  font-size: 0.6rem;
-  color: var(--text3);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
 }
 
 .ftagline {
@@ -1661,77 +1644,6 @@ section.rs.revealed > * {
 
 .fconnect a:hover svg {
   opacity: 1;
-}
-
-/* ── Closing line ──────────────────────────────────────────────────── */
-.fclose {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-  gap: clamp(1.25rem, 3vw, 3rem);
-  align-items: end;
-  padding-bottom: clamp(1.75rem, 3vw, 2.5rem);
-}
-
-.fclose-copy p {
-  font-size: 0.9rem;
-  color: var(--text2);
-  max-width: 26rem;
-}
-
-/* An editorial rule you type on, not a boxed form control. */
-.fsubscribe {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding-bottom: 0.7rem;
-  border-bottom: 1px solid var(--border-subtle);
-  transition: border-color var(--duration-button) var(--ease-editorial);
-}
-
-.fsubscribe:focus-within {
-  border-bottom-color: var(--color-gold);
-}
-
-.fsubscribe-input {
-  flex: 1;
-  min-width: 0;
-  background: none;
-  border: none;
-  outline: none;
-  color: var(--text);
-  font-size: 1rem;
-  padding: 0;
-}
-
-.fsubscribe-input::placeholder {
-  color: var(--text3);
-}
-
-.fsubscribe-go {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  background: none;
-  border: none;
-  padding: 0.25rem;
-  cursor: pointer;
-  color: var(--color-gold-muted);
-  transition:
-    color var(--duration-link) var(--ease-editorial),
-    transform var(--duration-link) var(--ease-editorial);
-}
-
-.fsubscribe:focus-within .fsubscribe-go,
-.fsubscribe-go:hover {
-  color: var(--color-gold-light);
-  transform: translateX(4px);
-}
-
-.fsubscribe-go:focus-visible {
-  outline: 2px solid var(--color-gold);
-  outline-offset: 3px;
-  border-radius: 4px;
 }
 
 /* ── Colophon — the one rule inside the footer ─────────────────────── */
@@ -1796,10 +1708,9 @@ section.rs.revealed > * {
 }
 
 /* ── Reveal ────────────────────────────────────────────────────────
-   One class on the footer root staggers four blocks. Nothing loops, and the
+   One class on the footer root staggers the blocks. Nothing loops, and the
    reduced-motion block below resolves everything to its resting state. */
 .footer-grid,
-.fclose,
 .footer-bottom {
   opacity: 0;
   transform: translateY(18px);
@@ -1817,7 +1728,6 @@ section.rs.revealed > * {
 }
 
 .footer.is-revealed .footer-grid,
-.footer.is-revealed .fclose,
 .footer.is-revealed .footer-bottom {
   opacity: 1;
   transform: none;
@@ -1829,17 +1739,15 @@ section.rs.revealed > * {
   transition-delay: 320ms;
 }
 
-.footer.is-revealed .fclose {
-  transition-delay: 120ms;
-}
-
 .footer.is-revealed .footer-bottom {
   transition-delay: 220ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* No auto-pull for motion-averse readers — the footer scrolls in normally
+     (the JS pull in AppFooter.vue checks this same preference). */
+
   .footer-grid,
-  .fclose,
   .footer-bottom {
     opacity: 1;
     transform: none;
@@ -1854,9 +1762,11 @@ section.rs.revealed > * {
     transition-delay: 0s;
   }
 
-  .flinks a:hover,
-  .fsubscribe-go:hover,
-  .fsubscribe:focus-within .fsubscribe-go {
+  .wm-char {
+    transition: none;
+  }
+
+  .flinks a:hover {
     transform: none;
   }
 }
@@ -1869,12 +1779,6 @@ section.rs.revealed > * {
   .fbrand {
     grid-column: 1 / -1;
     max-width: 34rem;
-  }
-
-  .fclose {
-    grid-template-columns: 1fr;
-    align-items: start;
-    gap: 1.25rem;
   }
 }
 
@@ -1889,21 +1793,6 @@ section.rs.revealed > * {
 
   .fbrand {
     grid-column: 1 / -1;
-  }
-
-  /* Stacked, the newsletter rule and the colophon rule end up one above the
-     other; give them enough air not to read as a double line. */
-  .fclose {
-    padding-bottom: 2.5rem;
-  }
-
-  /* On desktop the wordmark ends inside the container and the floating
-     back-to-top control sits outside it, so they never meet. Once the
-     container spans the full width the control lands on the word's last
-     letter, which reads as clipping — lift the wordmark clear of it. The
-     control is 46px tall, pinned 2rem up, so 5.5rem puts the type above it. */
-  .footer-wordmark {
-    bottom: 5.5rem;
   }
 
   .footer-bottom {

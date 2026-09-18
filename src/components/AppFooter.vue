@@ -1,30 +1,27 @@
 <template>
   <footer ref="footerEl" class="footer" :class="{ 'is-revealed': revealed }">
     <div class="container footer-inner">
-      <!-- Typographic architecture, not a watermark: the house name set very
-           large and barely above the black, sitting behind the closing rows.
-           It lives inside the container so it can be sized off the content
-           grid rather than the viewport, which is what keeps the whole word
-           on screen at every width. Decorative, so it stays out of the
-           accessibility tree. -->
-      <span class="footer-wordmark" aria-hidden="true">Sundarbans</span>
+      <!-- The house name as foreground architecture — a link home, each letter
+           lighting up in gold under the cursor. Sized off the content grid
+           (container) rather than the viewport so the whole word stays on
+           screen at every width. -->
+      <router-link to="/" class="footer-wordmark" aria-label="Sundarbans House — go to home">
+        <span v-for="(ch, i) in wordmark" :key="i" class="wm-char" aria-hidden="true">{{ ch }}</span>
+      </router-link>
 
       <div class="footer-grid">
-        <!-- ── Brand ────────────────────────────────────────────────── -->
+        <!-- ── Brand: the mark with the name beside it ─────────────────── -->
         <div class="fbrand">
-          <div class="flogo">
-            <span class="flogo-ring">
-              <img
-                src="https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911356/sundarbans/src/assets/LOGO.jpg"
-                alt="Sundarbans House logo"
-                class="flogo-img"
-              />
-            </span>
-            <span class="flogo-text">
-              <span class="fbrand-name">SUNDARBANS</span>
-              <span class="fbrand-sub">IIT Madras BS Degree</span>
-            </span>
-          </div>
+          <p class="fbrand-line">
+            <img
+              src="/assets/image/tsundere.svg"
+              alt="Sundarbans House"
+              class="flogo-svg"
+              width="46"
+              height="46"
+            />
+            <span class="fbrand-name">Sundarbans House</span>
+          </p>
           <p class="ftagline">Empowering minds, building futures — one student at a time.</p>
           <router-link to="/community" class="fcta">
             <span>Join the House</span>
@@ -68,27 +65,6 @@
         </nav>
       </div>
 
-      <!-- ── Closing / newsletter ───────────────────────────────────── -->
-      <div class="fclose">
-        <div class="fclose-copy">
-          <h2 class="fcol-title">Stay Connected</h2>
-          <p>Get the latest news and events from Sundarbans House.</p>
-        </div>
-        <form class="fsubscribe" @submit.prevent="subscribe">
-          <label class="sr-only" for="footer-email">Email for newsletter</label>
-          <input
-            id="footer-email"
-            v-model="email"
-            type="email"
-            class="fsubscribe-input"
-            placeholder="Enter your email"
-          />
-          <button type="submit" class="fsubscribe-go" aria-label="Subscribe to newsletter">
-            <ArrowRight :size="17" :stroke-width="2.2" />
-          </button>
-        </form>
-      </div>
-
       <!-- ── Colophon ───────────────────────────────────────────────── -->
       <div class="footer-bottom">
         <p class="fiit">
@@ -112,16 +88,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import { ArrowRight } from 'lucide-vue-next';
 
-const email = ref('');
-function subscribe() {
-  if (email.value) {
-    alert('Thanks for subscribing!');
-    email.value = '';
-  }
-}
+// Splitting inline (no whitespace between v-for spans) renders the wordmark
+// letter by letter so each glyph can light up on hover on its own.
+const wordmark = 'Sundarbans'.split('');
 
 // Lucide carries no brand marks, so these three stay as inline paths.
 const socials = [
@@ -166,8 +138,37 @@ onMounted(() => {
   observer.observe(footerEl.value);
 });
 
+// The closing "tight scroll": once the footer enters the bottom 15% of the
+// viewport the page finishes the scroll itself, aligning the footer's end with
+// the viewport bottom so the whole closing block lands in one step. Fires once
+// per visit, and never when the reader prefers reduced motion.
+const pulled = ref(false);
+let pullObserver = null;
+
+onMounted(() => {
+  if (typeof IntersectionObserver !== 'function') return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  pullObserver = new IntersectionObserver(
+    (entries) => {
+      if (pulled.value) return;
+      if (!entries.some((e) => e.isIntersecting)) return;
+      pulled.value = true;
+      nextTick(() => {
+        footerEl.value?.scrollIntoView({ block: 'end', behavior: 'smooth' });
+      });
+      pullObserver?.disconnect();
+      pullObserver = null;
+    },
+    { threshold: 0, rootMargin: '0px 0px -15% 0px' }
+  );
+  pullObserver.observe(footerEl.value);
+});
+
 onBeforeUnmount(() => {
   observer?.disconnect();
   observer = null;
+  pullObserver?.disconnect();
+  pullObserver = null;
 });
 </script>

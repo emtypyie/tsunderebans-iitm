@@ -44,6 +44,11 @@ release section when it ships.
   session — the page keeps the site-wide black-and-gold theme.
 - Study Corner: moving between steps scrolls the page gently (only when
   needed) instead of jumping.
+- Footer redesigned: the brand block now shows the `tsundere.svg` mark with
+  "Sundarbans House" beside it (no IITM subline), the giant "Sundarbans"
+  wordmark moved to the front of the footer as a link home with per-letter
+  gold glow on hover, and the "Stay Connected" newsletter / email form was
+  removed — the footer now runs Brand → links/Connect → colophon.
 
 ### Removed
 

@@ -6,8 +6,39 @@
        instead of sitting above everything. -->
   <section class="section tone-a rs" id="resource-browser">
     <div class="container">
+      <div class="rb-global-search">
+        <label class="rb-global-label" for="rb-global-search">Search resources</label>
+        <div class="rb-search-field">
+          <Search class="rb-search-icon" :size="17" :stroke-width="1.9" aria-hidden="true" />
+          <input
+            id="rb-global-search"
+            v-model="globalSearch"
+            type="search"
+            class="form-input rb-search-input"
+            placeholder="Search subjects, notes, PYQs…"
+            autocomplete="off"
+          />
+          <button
+            v-if="globalSearch"
+            type="button"
+            class="rb-search-clear"
+            aria-label="Clear search"
+            @click="globalSearch = ''"
+          >
+            <X :size="15" :stroke-width="2" />
+          </button>
+        </div>
+        <p class="rb-search-hint">
+          Searches every subject, note and past paper across all three levels.
+        </p>
+      </div>
+
       <nav class="rb-stepper" aria-label="Browse resources">
-        <ol class="rb-steps">
+        <div class="rb-steps-wrap">
+          <div class="rb-progress" aria-hidden="true">
+            <span class="rb-progress-fill" :style="{ width: progressPct + '%' }"></span>
+          </div>
+          <ol class="rb-steps">
           <li v-for="s in steps" :key="s.n">
             <button
               v-if="s.n <= step"
@@ -33,25 +64,88 @@
             </span>
           </li>
         </ol>
+        </div>
         <button v-if="branch" type="button" class="btn btn--text rb-reset" @click="resetAll">
           Start over
         </button>
       </nav>
 
       <div class="rb-stage">
+        <!-- Global search results: replaces the stepper while a query is active,
+             so the browse flow and the search-across-everything flow never mix. -->
+        <div v-if="hasGlobalQuery" key="global" class="rb-step-pane rb-global">
+          <h2 class="rb-step-title" id="rb-head-global" tabindex="-1">
+            Results for “{{ globalSearch }}”
+          </h2>
+          <p class="rb-step-sub">
+            Matching subjects, notes, lectures and past papers — across every branch and level.
+          </p>
+
+          <template v-if="globalGroups.length">
+            <section
+              v-for="(g, gi) in globalGroups"
+              :key="g.subject.key"
+              class="rb-global-group"
+            >
+              <h3 class="rb-global-label">
+                <span>
+                  {{ g.label }}
+                  <span class="rb-group-count">{{ g.items.length }}</span>
+                </span>
+                <button type="button" class="btn btn--text" @click="openGlobalSubject(g.subject)">
+                  Open in browser
+                </button>
+              </h3>
+              <ul class="rb-global-list">
+                <li v-for="(item, ii) in g.items" :key="item.key">
+                  <a
+                    class="rb-global-item rb-card-enter"
+                    :style="{ animationDelay: gi * 60 + ii * 45 + 'ms' }"
+                    :href="item.link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span class="rb-global-item-main">
+                      <span class="rb-global-item-title">{{ item.title }}</span>
+                      <span class="rb-global-item-meta">
+                        <span class="rb-global-item-type">{{ item.typeLabel }}</span>
+                        <span v-if="item.badge" class="rb-global-item-badge">{{ item.badge }}</span>
+                      </span>
+                    </span>
+                    <span class="rb-global-item-cta">
+                      {{ item.cta }}
+                      <ArrowRight :size="14" :stroke-width="2" aria-hidden="true" />
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </section>
+          </template>
+
+          <p v-else class="rb-empty">
+            <FileSearch :size="26" :stroke-width="1.6" aria-hidden="true" />
+            <span>No subjects or resources match “{{ globalSearch }}”.</span>
+            <button type="button" class="btn btn--outline btn--sm" @click="globalSearch = ''">
+              Clear search
+            </button>
+          </p>
+        </div>
+
+        <Transition v-else name="rb-step" mode="out-in">
         <!-- ── 1. BRANCH ─────────────────────────────────────────── -->
-        <div v-if="step === 1">
+        <div v-if="step === 1" key="1" class="rb-step-pane">
           <h2 class="rb-step-title" id="rb-head-1">Choose your branch</h2>
           <p class="rb-step-sub">
             Each programme has its own subjects, so start with the branch you are enrolled in.
           </p>
           <div class="rb-branch-grid" role="group" aria-labelledby="rb-head-1">
             <button
-              v-for="b in BRANCHES"
+              v-for="(b, bi) in BRANCHES"
               :key="b.key"
               type="button"
-              class="rb-branch"
+              class="rb-branch rb-card-enter"
               :class="{ 'rb-branch--selected': branch === b.key }"
+              :style="{ animationDelay: bi * 45 + 'ms' }"
               :aria-pressed="branch === b.key"
               @click="chooseBranch(b.key)"
             >
@@ -70,18 +164,19 @@
         </div>
 
 <!-- ── 2. LEVEL ──────────────────────────────────────────── -->
-        <div v-else-if="step === 2">
+        <div v-else-if="step === 2" key="2" class="rb-step-pane">
           <h2 class="rb-step-title" id="rb-head-2">Choose your level</h2>
           <p class="rb-step-sub">
             {{ currentBranch.name }} runs three levels — pick where you are.
           </p>
           <div class="rb-level-grid" role="group" aria-labelledby="rb-head-2">
             <button
-              v-for="l in LEVELS"
+              v-for="(l, li) in LEVELS"
               :key="l.key"
               type="button"
-              class="rb-level"
+              class="rb-level rb-card-enter"
               :class="{ 'rb-level--selected': level === l.key }"
+              :style="{ animationDelay: li * 45 + 'ms' }"
               :aria-pressed="level === l.key"
               @click="chooseLevel(l.key)"
             >
@@ -99,7 +194,7 @@
         </div>
 
         <!-- ── 3. SUBJECT ────────────────────────────────────────── -->
-        <div v-else-if="step === 3">
+        <div v-else-if="step === 3" key="3" class="rb-step-pane">
           <h2 class="rb-step-title" id="rb-head-3">Choose a subject</h2>
           <p class="rb-step-sub">
             {{ currentLevel.title }} · {{ currentBranch.name }} — search or pick below.
@@ -138,15 +233,17 @@
             aria-labelledby="rb-head-3"
           >
             <button
-              v-for="subject in visibleCore"
+              v-for="(subject, si) in visibleCore"
               :key="subjectKey(subject)"
               type="button"
-              class="rb-subject"
+              class="rb-subject rb-card-enter"
+              :style="{ animationDelay: si * 45 + 'ms' }"
               :aria-pressed="isSelected(subject)"
               @click="selectSubject(subject)"
             >
               <span class="rb-subject-code">{{ subject.code }}</span>
               <span class="rb-subject-name">{{ subject.name }}</span>
+              <ChevronRight class="rb-subject-go" :size="15" :stroke-width="2" aria-hidden="true" />
             </button>
           </div>
 
@@ -164,16 +261,18 @@
               :aria-label="`${group.label} subjects`"
             >
               <button
-                v-for="sub in group.subjects"
+                v-for="(sub, si) in group.subjects"
                 :key="subjectKey(sub)"
                 type="button"
-                class="rb-subject"
+                class="rb-subject rb-card-enter"
+                :style="{ animationDelay: si * 45 + 'ms' }"
                 :class="{ 'rb-subject--elective': !sub.code }"
                 :aria-pressed="isSelected(sub)"
                 @click="selectSubject(sub)"
               >
                 <span v-if="sub.code" class="rb-subject-code">{{ sub.code }}</span>
                 <span class="rb-subject-name">{{ sub.name }}</span>
+                <ChevronRight class="rb-subject-go" :size="15" :stroke-width="2" aria-hidden="true" />
               </button>
             </div>
             <p v-else class="rb-note rb-note--rest">{{ group.note }}</p>
@@ -186,7 +285,7 @@
         </div>
 
         <!-- ── 4. RESOURCES ──────────────────────────────────────── -->
-        <div v-else-if="step === 4">
+        <div v-else-if="step === 4" key="4" class="rb-step-pane">
           <h2 class="rb-step-title" id="rb-head-4">Resources</h2>
           <template v-if="subject">
             <ResourceResults
@@ -205,6 +304,7 @@
             <span>Choose a subject above to see its notes, lectures and past papers.</span>
           </p>
         </div>
+        </Transition>
       </div>
     </div>
   </section>
@@ -223,11 +323,15 @@ import {
   CircuitBoard,
   Rocket,
   Briefcase,
+  ChevronRight,
+  FileSearch,
+  ArrowRight,
 } from 'lucide-vue-next';
 
 import {
   BRANCHES,
   LEVELS,
+  allSubjectsFor,
   branchSubjectCount,
   subjectKey,
   subjectsFor,
@@ -258,6 +362,7 @@ const subject = ref(null);
 const resourceType = ref('all');
 const expandedGroups = ref({});
 const search = ref('');
+const globalSearch = ref('');
 
 const currentBranch = computed(() => BRANCHES.find((b) => b.key === branch.value) || null);
 const currentLevel = computed(() => LEVELS.find((l) => l.key === level.value) || null);
@@ -265,11 +370,89 @@ const currentLevel = computed(() => LEVELS.find((l) => l.key === level.value) ||
 const query = computed(() => search.value.trim().toLowerCase());
 const hasQuery = computed(() => query.value.length > 0);
 
+// ── Global resource search ──────────────────────────────────────────
+// Independent of the stepper: typing searches the *whole catalogue* — every
+// branch × level — matching subject names/codes and the titles of every note,
+// lecture and past paper. A live query swaps the stage for the results below.
+const hasGlobalQuery = computed(() => globalSearch.value.trim().length > 0);
+
+const GLOBAL_TYPE_META = {
+  lectures: { label: 'Lectures', cta: 'Watch' },
+  notes: { label: 'Notes', cta: 'View notes' },
+  pyq: { label: 'PYQs', cta: 'Open paper' },
+};
+
+// Every selectable subject in the catalogue, deduped by key, tagged with the
+// branch and level it belongs to so a result can step straight into it.
+const globalCatalog = computed(() => {
+  const seen = new Map();
+  BRANCHES.forEach((branchKey) => {
+    LEVELS.forEach((levelKey) => {
+      allSubjectsFor(branchKey, levelKey.key).forEach((subject) => {
+        const key = subjectKey(subject);
+        if (!seen.has(key)) {
+          seen.set(key, { ...subject, key, branchKey, levelKey: levelKey.key });
+        }
+      });
+    });
+  });
+  return Array.from(seen.values());
+});
+
+function decorateGlobalItem(item, type, index, subjectKey) {
+  const meta = GLOBAL_TYPE_META[type];
+  return {
+    key: `${subjectKey}-${type}-${index}-${item.link}`,
+    title: item.title,
+    link: item.link,
+    badge: item.badge,
+    typeLabel: meta.label,
+    cta: meta.cta,
+  };
+}
+
+const globalGroups = computed(() => {
+  const q = globalSearch.value.trim().toLowerCase();
+  if (!q) return [];
+  const groups = [];
+  globalCatalog.value.forEach((subject) => {
+    const nameMatch = String(subject.name || '').toLowerCase().includes(q);
+    const codeMatch = String(subject.code || '').toLowerCase().includes(q);
+    const matchedBySubject = nameMatch || codeMatch;
+    const items = [];
+    RESOURCE_TYPES.forEach((type) => {
+      resourcesFor(subject.code)[type].forEach((item, i) => {
+        const titleMatch = String(item.title || '').toLowerCase().includes(q);
+        if (matchedBySubject || titleMatch) {
+          items.push(decorateGlobalItem(item, type, i, subject.key));
+        }
+      });
+    });
+    if (items.length) {
+      groups.push({
+        subject,
+        label: subject.code
+          ? `${subject.code} · ${subject.name}`
+          : subject.name,
+        match: matchedBySubject ? 'subject' : 'items',
+        items,
+      });
+    }
+  });
+  // Direct subject hits first (their whole resource set is shown), then
+  // subjects reached purely through matching item titles.
+  return groups.sort((a, b) => (a.match === b.match ? 0 : a.match === 'subject' ? -1 : 1));
+});
+
 const stepSummary = computed(() => ({
   1: currentBranch.value ? `${currentBranch.value.short} · ${currentBranch.value.name}` : '',
   2: currentLevel.value ? currentLevel.value.title : '',
   3: subject.value ? subject.value.name : '',
 }));
+
+// How far through the stepper we are — drives the gold progress line that sits
+// behind the pills (0% on step 1, 100% when the resources are shown).
+const progressPct = computed(() => ((step.value - 1) / (steps.length - 1)) * 100);
 
 // ── Subject list for the chosen branch + level ───────────────────────
 const currentLevelCore = computed(() =>
@@ -345,6 +528,7 @@ function levelStat(levelKey) {
 
 // ── Actions ──────────────────────────────────────────────────────────
 function chooseBranch(key) {
+  globalSearch.value = '';
   if (branch.value === key) {
     step.value = 2; // "confirm" path when returning from a later step
     return;
@@ -359,6 +543,7 @@ function chooseBranch(key) {
 }
 
 function chooseLevel(key) {
+  globalSearch.value = '';
   if (level.value === key) {
     step.value = 3;
     return;
@@ -372,6 +557,7 @@ function chooseLevel(key) {
 }
 
 function selectSubject(s) {
+  globalSearch.value = '';
   if (subject.value && subjectKey(s) === subjectKey(subject.value)) {
     step.value = 4;
     return;
@@ -398,7 +584,20 @@ function resetAll() {
   resourceType.value = 'all';
   expandedGroups.value = {};
   search.value = '';
+  globalSearch.value = '';
   step.value = 1;
+}
+
+// A global result can hand the visitor straight into the stepper for that
+// subject (branch + level + subject set, resources shown).
+function openGlobalSubject(s) {
+  branch.value = s.branchKey;
+  level.value = s.levelKey;
+  subject.value = { ...s, levelKey: s.levelKey, branchKey: s.branchKey };
+  resourceType.value = 'all';
+  expandedGroups.value = {};
+  globalSearch.value = '';
+  step.value = 4;
 }
 
 // Moving between steps focuses the new step heading so a screen-reader hears
@@ -424,12 +623,20 @@ function focusStep(headingId) {
   el.focus({ preventScroll: true });
 }
 
-watch(step, (value) =>
-  nextTick(() => {
-    const headingId = value === 1 ? 'rb-head-1' : `rb-head-${value}`;
+watch(step, (value) => nextTick(() => focusWhenReady(value, 0)));
+
+// The step panes swap through an out-in transition, so the new heading is not
+// in the DOM the moment `step` changes. Retry across a couple of animation
+// frames until the next pane has actually mounted, then focus it.
+function focusWhenReady(value, attempt) {
+  const headingId = value === 1 ? 'rb-head-1' : `rb-head-${value}`;
+  const el = document.getElementById(headingId);
+  if (el) {
     focusStep(headingId);
-  })
-);
+  } else if (attempt < 20) {
+    requestAnimationFrame(() => focusWhenReady(value, attempt + 1));
+  }
+}
 </script>
 
 <style scoped>
@@ -453,7 +660,40 @@ watch(step, (value) =>
   margin-bottom: 2.5rem;
 }
 
+.rb-steps-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+/* The progress track rides the vertical centre of the step pills and fills
+   gold as the visitor advances. Pills are opaque so the line passes cleanly
+   underneath instead of bleeding through. */
+.rb-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 2px;
+  background: var(--border-subtle);
+  border-radius: 99px;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.rb-progress-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--color-gold), var(--accent));
+  border-radius: 99px;
+  transition: width 0.55s var(--ease-editorial);
+}
+
 .rb-steps {
+  position: relative;
+  z-index: 1;
   list-style: none;
   display: flex;
   flex-wrap: wrap;
@@ -501,7 +741,10 @@ watch(step, (value) =>
 
 .rb-step--active {
   border-color: var(--color-gold);
-  background: rgba(213, 166, 58, 0.1);
+  /* Opaque fill (card colour) with a gold wash painted on top via an inset
+     shadow — the pill stays solid so the progress line passes underneath. */
+  background: var(--color-card);
+  box-shadow: inset 0 0 0 100px rgba(213, 166, 58, 0.09);
   color: var(--color-gold-light);
   font-weight: 600;
 }
@@ -937,11 +1180,150 @@ watch(step, (value) =>
   min-height: 200px;
 }
 
+/* ── Step transitions & entrance choreography ──────────────────── */
+/* Step panes slide/fade as the visitor advances; `out-in` keeps the two from
+   ever overlapping and the min-height on .rb-stage holds the layout steady. */
+.rb-step-enter-active {
+  transition:
+    opacity 0.32s var(--ease-editorial),
+    transform 0.32s var(--ease-editorial);
+}
+
+.rb-step-leave-active {
+  transition:
+    opacity 0.18s var(--ease-editorial),
+    transform 0.18s var(--ease-editorial);
+}
+
+.rb-step-enter-from {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.rb-step-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+/* Cards inside a fresh step rise in one after another. `both` keeps each card
+   in its hidden state until its delay starts, so the stagger reads as a wave
+   instead of a single pop. */
+@keyframes rb-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rb-card-enter {
+  animation: rb-rise 0.5s var(--ease-editorial) both;
+}
+
+/* Hover: a warm gold glow and lift, and the card's icon wakes up. */
+.rb-branch:hover,
+.rb-level:hover {
+  border-color: rgba(213, 166, 58, 0.55);
+  box-shadow: 0 16px 34px -18px rgba(213, 166, 58, 0.4);
+  transform: translateY(-2px);
+}
+
+.rb-branch-icon,
+.rb-level-icon {
+  transition: transform var(--duration-selector) var(--ease-editorial);
+}
+
+.rb-branch:hover .rb-branch-icon,
+.rb-level:hover .rb-level-icon {
+  transform: scale(1.15) rotate(-6deg);
+}
+
+/* Selection pops the card once, then it settles — reads as "locked in" right
+   before the browser advances a step. Placed after .rb-card-enter so a card
+   that gets selected later breaks out of the (finished) rise and plays this. */
+@keyframes rb-pop {
+  0% {
+    transform: scale(0.98);
+  }
+  40% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.rb-branch--selected,
+.rb-level--selected,
+.rb-subject[aria-pressed='true'] {
+  animation: rb-pop 0.4s var(--ease-editorial);
+}
+
+/* A chevron slides in on subject rows to signal "this opens the resources". */
+.rb-subject {
+  padding-right: 2.2rem;
+}
+
+.rb-subject-go {
+  position: absolute;
+  right: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%) translateX(-5px);
+  opacity: 0;
+  color: var(--accent);
+  transition:
+    opacity var(--duration-selector) var(--ease-editorial),
+    transform var(--duration-selector) var(--ease-editorial);
+}
+
+.rb-subject:hover .rb-subject-go,
+.rb-subject[aria-pressed='true'] .rb-subject-go {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .rb-step-enter-active,
+  .rb-step-leave-active,
+  .rb-progress-fill,
+  .rb-subject-go {
+    transition: none;
+  }
+
+  .rb-card-enter,
+  .rb-branch--selected,
+  .rb-level--selected,
+  .rb-subject[aria-pressed='true'] {
+    animation: none;
+  }
+
+  .rb-branch:hover,
+  .rb-level:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .rb-branch:hover .rb-branch-icon,
+  .rb-level:hover .rb-level-icon {
+    transform: none;
+  }
+}
+
 /* ── Responsive ─────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .rb-stepper {
     flex-direction: column;
     margin-bottom: 2rem;
+  }
+
+  /* The pills stack vertically on small screens, so a horizontal track has no
+     single clean centre line anymore — drop it. */
+  .rb-progress {
+    display: none;
   }
 
   .rb-step-value {

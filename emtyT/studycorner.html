@@ -751,7 +751,34 @@
         gap: 1rem;
         margin-bottom: 2.5rem;
       }
+      .rb-steps-wrap {
+        position: relative;
+        flex: 1;
+        min-width: 0;
+      }
+      .rb-progress {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 2px;
+        background: var(--border-subtle);
+        border-radius: 99px;
+        overflow: hidden;
+        z-index: 0;
+      }
+      .rb-progress-fill {
+        display: block;
+        height: 100%;
+        width: 0;
+        background: linear-gradient(90deg, var(--color-gold), var(--accent));
+        border-radius: 99px;
+        transition: width 0.55s var(--ease-editorial);
+      }
       .rb-steps {
+        position: relative;
+        z-index: 1;
         list-style: none;
         display: flex;
         flex-wrap: wrap;
@@ -794,7 +821,8 @@
       }
       .rb-step--active {
         border-color: var(--color-gold);
-        background: rgba(213, 166, 58, 0.1);
+        background: var(--color-card);
+        box-shadow: inset 0 0 0 100px rgba(213, 166, 58, 0.09);
         color: var(--color-gold-light);
         font-weight: 600;
       }
@@ -846,6 +874,9 @@
         .rb-stepper {
           flex-direction: column;
           margin-bottom: 2rem;
+        }
+        .rb-progress {
+          display: none;
         }
         .rb-step-value {
           max-width: 9rem;
@@ -1358,6 +1389,87 @@
       .rb-empty--start {
         min-height: 200px;
       }
+      /* Step transition: the freshly-shown panel rises in. (It is shown by
+         removing `hidden`, which restarts a CSS animation on display change.) */
+      .rb-step-panel:not([hidden]) {
+        animation: rb-step-in 0.32s var(--ease-editorial);
+      }
+      @keyframes rb-step-in {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      /* Cards inside a fresh step rise one after another. */
+      @keyframes rb-rise {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .rb-card-enter {
+        animation: rb-rise 0.5s var(--ease-editorial) both;
+      }
+      /* Hover: warm gold glow and lift, icon wakes up. */
+      .rb-branch:hover,
+      .rb-level:hover {
+        border-color: rgba(213, 166, 58, 0.55);
+        box-shadow: 0 16px 34px -18px rgba(213, 166, 58, 0.4);
+        transform: translateY(-2px);
+      }
+      .rb-branch-icon,
+      .rb-level-icon {
+        transition: transform var(--duration-selector) var(--ease-editorial);
+      }
+      .rb-branch:hover .rb-branch-icon,
+      .rb-level:hover .rb-level-icon {
+        transform: scale(1.15) rotate(-6deg);
+      }
+      /* Selection pops once, then settles. */
+      @keyframes rb-pop {
+        0% {
+          transform: scale(0.98);
+        }
+        40% {
+          transform: scale(1.03);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      .rb-branch--selected,
+      .rb-level--selected,
+      .rb-subject[aria-pressed='true'] {
+        animation: rb-pop 0.4s var(--ease-editorial);
+      }
+      /* Chevron slides in on subject rows to signal clickability. */
+      .rb-subject {
+        padding-right: 2.2rem;
+      }
+      .rb-subject-go {
+        position: absolute;
+        right: 0.85rem;
+        top: 50%;
+        transform: translateY(-50%) translateX(-5px);
+        opacity: 0;
+        color: var(--accent);
+        transition:
+          opacity var(--duration-selector) var(--ease-editorial),
+          transform var(--duration-selector) var(--ease-editorial);
+      }
+      .rb-subject:hover .rb-subject-go,
+      .rb-subject[aria-pressed='true'] .rb-subject-go {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+      }
       .rr-none {
         display: flex;
         flex-direction: column;
@@ -1576,27 +1688,42 @@
         container-type: inline-size;
       }
       .footer-grid,
-      .fclose,
       .footer-bottom {
         position: relative;
         z-index: 1;
       }
       .footer-wordmark {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0.24em;
-        z-index: 0;
-        pointer-events: none;
+        display: block;
+        position: relative;
+        z-index: 2;
         user-select: none;
         white-space: nowrap;
         text-align: center;
         font-family: 'Samarkan', var(--font-display);
         font-weight: 400;
-        font-size: 16cqi;
+        font-size: 20cqi;
         letter-spacing: 0;
         line-height: 1;
-        color: #1b1611;
+        color: #2a2115;
+        text-decoration: none;
+        margin-bottom: clamp(1.5rem, 3vw, 2.75rem);
+      }
+      .wm-char {
+        display: inline-block;
+        transition:
+          color 260ms var(--ease-editorial),
+          text-shadow 260ms var(--ease-editorial);
+      }
+      .footer-wordmark .wm-char:hover {
+        color: #f8b84e;
+        text-shadow:
+          0 0 12px rgba(248, 184, 78, 0.5),
+          0 0 36px rgba(248, 184, 78, 0.22);
+      }
+      .footer-wordmark:focus-visible {
+        outline: 2px solid var(--color-gold);
+        outline-offset: -8px;
+        border-radius: 4px;
       }
       .footer-grid {
         display: grid;
@@ -1607,47 +1734,24 @@
       .fbrand {
         max-width: 30rem;
       }
-      .flogo {
+      .fbrand-line {
         display: flex;
         align-items: center;
         gap: 0.85rem;
         margin-bottom: 1.1rem;
       }
-      .flogo-ring {
+      .flogo-svg {
         width: 46px;
         height: 46px;
         flex-shrink: 0;
-        border-radius: 50%;
-        border: 1px solid var(--color-gold-muted);
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .flogo-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 50%;
-        transform: scale(1.08);
-      }
-      .flogo-text {
-        display: flex;
-        flex-direction: column;
-        line-height: 1.25;
+        opacity: 0.95;
       }
       .fbrand-name {
         font-family: var(--font-display);
         font-weight: 700;
-        font-size: 1.05rem;
-        letter-spacing: 0.12em;
+        font-size: 1.15rem;
+        letter-spacing: 0.06em;
         color: var(--text);
-      }
-      .fbrand-sub {
-        font-size: 0.6rem;
-        color: var(--text3);
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
       }
       .ftagline {
         font-size: 0.95rem;
@@ -1699,66 +1803,6 @@
       .fconnect a:hover svg {
         opacity: 1;
       }
-      .fclose {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-        gap: clamp(1.25rem, 3vw, 3rem);
-        align-items: end;
-        padding-bottom: clamp(1.75rem, 3vw, 2.5rem);
-      }
-      .fclose-copy p {
-        font-size: 0.9rem;
-        color: var(--text2);
-        max-width: 26rem;
-      }
-      .fsubscribe {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding-bottom: 0.7rem;
-        border-bottom: 1px solid var(--border-subtle);
-        transition: border-color var(--duration-button) var(--ease-editorial);
-      }
-      .fsubscribe:focus-within {
-        border-bottom-color: var(--color-gold);
-      }
-      .fsubscribe-input {
-        flex: 1;
-        min-width: 0;
-        background: none;
-        border: none;
-        outline: none;
-        color: var(--text);
-        font-size: 1rem;
-        padding: 0;
-      }
-      .fsubscribe-input::placeholder {
-        color: var(--text3);
-      }
-      .fsubscribe-go {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        background: none;
-        border: none;
-        padding: 0.25rem;
-        cursor: pointer;
-        color: var(--color-gold-muted);
-        transition:
-          color var(--duration-link) var(--ease-editorial),
-          transform var(--duration-link) var(--ease-editorial);
-      }
-      .fsubscribe:focus-within .fsubscribe-go,
-      .fsubscribe-go:hover {
-        color: var(--color-gold-light);
-        transform: translateX(4px);
-      }
-      .fsubscribe-go:focus-visible {
-        outline: 2px solid var(--color-gold);
-        outline-offset: 3px;
-        border-radius: 4px;
-      }
       .footer-bottom {
         border-top: 1px solid var(--border-subtle);
         padding: 1.35rem 0 0;
@@ -1804,7 +1848,6 @@
 
       /* Footer reveal */
       .footer-grid,
-      .fclose,
       .footer-bottom,
       .footer-wordmark {
         opacity: 0;
@@ -1814,7 +1857,6 @@
           transform 900ms var(--ease-reveal);
       }
       .footer.is-revealed .footer-grid,
-      .footer.is-revealed .fclose,
       .footer.is-revealed .footer-bottom {
         opacity: 1;
         transform: none;
@@ -1824,16 +1866,12 @@
         transform: none;
         transition-delay: 320ms;
       }
-      .footer.is-revealed .fclose {
-        transition-delay: 120ms;
-      }
       .footer.is-revealed .footer-bottom {
         transition-delay: 220ms;
       }
 
       @media (prefers-reduced-motion: reduce) {
         .footer-grid,
-        .fclose,
         .footer-bottom,
         .footer-wordmark,
         .footer.is-revealed .footer-wordmark {
@@ -1842,9 +1880,33 @@
           transition: none;
           transition-delay: 0s;
         }
-        .flinks a:hover,
-        .fsubscribe-go:hover,
-        .fsubscribe:focus-within .fsubscribe-go {
+        /* Resource browser: kill the step/card choreography, keep content
+           fully visible. */
+        .rb-step-panel:not([hidden]),
+        .rb-card-enter,
+        .rb-branch--selected,
+        .rb-level--selected,
+        .rb-subject[aria-pressed='true'] {
+          animation: none;
+        }
+        .rb-progress-fill,
+        .rb-subject-go,
+        .rb-branch-icon,
+        .rb-level-icon {
+          transition: none;
+        }
+        .rb-branch:hover,
+        .rb-level:hover {
+          transform: none;
+          box-shadow: none;
+        }
+        .rb-subject:hover .rb-subject-go {
+          opacity: 0;
+        }
+        .wm-char {
+          transition: none;
+        }
+        .flinks a:hover {
           transform: none;
         }
       }
@@ -1856,11 +1918,6 @@
           grid-column: 1 / -1;
           max-width: 34rem;
         }
-        .fclose {
-          grid-template-columns: 1fr;
-          align-items: start;
-          gap: 1.25rem;
-        }
       }
       @media (max-width: 640px) {
         .footer-grid {
@@ -1869,9 +1926,6 @@
         }
         .fbrand {
           grid-column: 1 / -1;
-        }
-        .fclose {
-          padding-bottom: 2.5rem;
         }
         .footer-bottom {
           padding-right: 0;
@@ -1937,7 +1991,12 @@
       <section class="section tone-a" id="resource-browser">
         <div class="container">
           <nav class="rb-stepper" aria-label="Browse resources">
-            <ol class="rb-steps" id="rbSteps"></ol>
+            <div class="rb-steps-wrap">
+              <div class="rb-progress" aria-hidden="true">
+                <span class="rb-progress-fill" id="rbProgressFill"></span>
+              </div>
+              <ol class="rb-steps" id="rbSteps"></ol>
+            </div>
             <button id="rbReset" type="button" class="btn btn--text rb-reset" hidden>Start over</button>
           </nav>
 
@@ -2207,24 +2266,23 @@
     <!-- ======================= FOOTER (AppFooter) ======================= -->
     <footer class="footer" id="footer">
       <div class="container footer-inner">
-        <span class="footer-wordmark" aria-hidden="true">Sundarbans</span>
+        <a href="#" class="footer-wordmark" aria-label="Sundarbans House — go to home">
+          <span class="wm-char" aria-hidden="true">S</span><span class="wm-char" aria-hidden="true">u</span><span class="wm-char" aria-hidden="true">n</span><span class="wm-char" aria-hidden="true">d</span><span class="wm-char" aria-hidden="true">a</span><span class="wm-char" aria-hidden="true">r</span><span class="wm-char" aria-hidden="true">b</span><span class="wm-char" aria-hidden="true">a</span><span class="wm-char" aria-hidden="true">n</span><span class="wm-char" aria-hidden="true">s</span>
+        </a>
 
         <div class="footer-grid">
           <div class="fbrand">
-            <div class="flogo">
-              <span class="flogo-ring">
-                <img
-                  src="https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911356/sundarbans/src/assets/LOGO.jpg"
-                  alt="Sundarbans House logo"
-                  class="flogo-img"
-                />
-              </span>
-              <span class="flogo-text">
-                <span class="fbrand-name">SUNDARBANS</span>
-                <span class="fbrand-sub">IIT Madras BS Degree</span>
-              </span>
-            </div>
-            <p class="ftagline">Empowering minds, building futures â€” one student at a time.</p>
+            <p class="fbrand-line">
+              <img
+                src="/assets/image/tsundere.svg"
+                alt="Sundarbans House"
+                width="46"
+                height="46"
+                class="flogo-svg"
+              />
+              <span class="fbrand-name">Sundarbans House</span>
+            </p>
+            <p class="ftagline">Empowering minds, building futures — one student at a time.</p>
             <a href="#" class="fcta">
               <span>Join the House</span>
               <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -2271,27 +2329,6 @@
               <span>YouTube</span>
             </a>
           </nav>
-        </div>
-
-        <div class="fclose">
-          <div class="fclose-copy">
-            <h2 class="fcol-title">Stay Connected</h2>
-            <p>Get the latest news and events from Sundarbans House.</p>
-          </div>
-          <form class="fsubscribe" id="footerForm">
-            <label class="sr-only" for="footer-email">Email for newsletter</label>
-            <input
-              id="footer-email"
-              type="email"
-              class="fsubscribe-input"
-              placeholder="Enter your email"
-            />
-            <button type="submit" class="fsubscribe-go" aria-label="Subscribe to newsletter">
-              <svg viewBox="0 0 24 24" width="17" height="17" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
-              </svg>
-            </button>
-          </form>
         </div>
 
         <div class="footer-bottom">
@@ -2542,6 +2579,7 @@
          ===================================================================== */
       var ICON_PATHS = {
         arrowRight: '<line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />',
+        chevronRight: '<path d="m9 18 6-6-6-6" />',
         search: '<circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />',
         x: '<path d="M18 6 6 18" /><path d="m6 6 12 12" />',
         chevronDown: '<path d="m6 9 6 6 6-6" />',
@@ -2860,6 +2898,7 @@
           }
         });
         $('rbSteps').innerHTML = html;
+        $('rbProgressFill').style.width = ((state.step - 1) / 3) * 100 + '%';
         $('rbSteps').querySelectorAll('[data-go]').forEach(function (btn) {
           btn.addEventListener('click', function () {
             var n = Number(btn.getAttribute('data-go'));
@@ -2884,11 +2923,12 @@
 
       function renderBranchGrid() {
         var html = '';
-        BRANCHES.forEach(function (b) {
+        BRANCHES.forEach(function (b, i) {
           html +=
-            '<button type="button" class="rb-branch' +
+            '<button type="button" class="rb-branch rb-card-enter' +
             (state.branch === b.key ? ' rb-branch--selected' : '') +
-            '" aria-pressed="' + (state.branch === b.key) + '" data-branch="' + b.key + '">' +
+            '" style="animation-delay:' + i * 45 + 'ms"' +
+            ' aria-pressed="' + (state.branch === b.key) + '" data-branch="' + b.key + '">' +
             icon(branchIcons[b.key], 20, 1.7) +
             '<span class="rb-branch-code">' + b.short + '</span>' +
             '<span class="rb-branch-name">' + b.name + '</span>' +
@@ -2905,11 +2945,12 @@
 
       function renderLevelGrid() {
         var html = '';
-        LEVELS.forEach(function (l) {
+        LEVELS.forEach(function (l, i) {
           html +=
-            '<button type="button" class="rb-level' +
+            '<button type="button" class="rb-level rb-card-enter' +
             (state.level === l.key ? ' rb-level--selected' : '') +
-            '" aria-pressed="' + (state.level === l.key) + '" data-level="' + l.key + '">' +
+            '" style="animation-delay:' + i * 45 + 'ms"' +
+            ' aria-pressed="' + (state.level === l.key) + '" data-level="' + l.key + '">' +
             icon(levelIcons[l.key], 20, 1.7) +
             '<span class="rb-level-name">' + l.title + '</span>' +
             '<span class="rb-level-count">' + levelStat(l.key) + '</span>' +
@@ -2923,13 +2964,15 @@
         });
       }
 
-      function subjectCardHtml(s) {
+      function subjectCardHtml(s, idx) {
         return (
-          '<button type="button" class="rb-subject' +
+          '<button type="button" class="rb-subject rb-card-enter' +
           (s.code ? '' : ' rb-subject--elective') +
-          '" aria-pressed="' + isSelected(s) + '" data-subject="' + subjectKey(s) + '">' +
+          '" style="animation-delay:' + idx * 45 + 'ms"' +
+          ' aria-pressed="' + isSelected(s) + '" data-subject="' + subjectKey(s) + '">' +
           (s.code ? '<span class="rb-subject-code">' + s.code + '</span>' : '') +
           '<span class="rb-subject-name">' + s.name + '</span>' +
+          icon('chevronRight', 15, 2) +
           '</button>'
         );
       }
@@ -2945,8 +2988,8 @@
         var html = '';
         if (core.length) {
           html += '<div class="rb-subject-grid" role="group" aria-labelledby="rb-head-3">';
-          core.forEach(function (s) {
-            html += subjectCardHtml(s);
+          core.forEach(function (s, i) {
+            html += subjectCardHtml(s, i);
           });
           html += '</div>';
         }
@@ -2958,8 +3001,8 @@
             '</h3>';
           if (g.subjects && g.subjects.length) {
             html += '<div class="rb-subject-grid" role="group" aria-label="' + g.label + ' subjects">';
-            g.subjects.forEach(function (s) {
-              html += subjectCardHtml(s);
+            g.subjects.forEach(function (s, i) {
+              html += subjectCardHtml(s, i);
             });
             html += '</div>';
           } else if (g.note) {
@@ -3349,6 +3392,27 @@
             { threshold: 0.08 }
           );
           io.observe(footer);
+
+          // Closing "tight scroll": once the footer enters the bottom 15% of
+          // the viewport, finish the scroll so the whole footer lands in one
+          // step. Once per visit; never under prefers-reduced-motion.
+          var pulled = false;
+          if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            var pullIo = new IntersectionObserver(
+              function (entries) {
+                entries.forEach(function (e) {
+                  if (!e.isIntersecting || pulled) return;
+                  pulled = true;
+                  setTimeout(function () {
+                    footer.scrollIntoView({ block: 'end', behavior: 'smooth' });
+                  }, 0);
+                  pullIo.disconnect();
+                });
+              },
+              { threshold: 0, rootMargin: '0px 0px -15% 0px' }
+            );
+            pullIo.observe(footer);
+          }
         } else {
           revealFooter();
         }
@@ -3380,16 +3444,6 @@
             c.classList.add('revealed');
           });
         }
-
-        // Newsletter
-        $('footerForm').addEventListener('submit', function (e) {
-          e.preventDefault();
-          var input = $('footer-email');
-          if (input.value) {
-            alert('Thanks for subscribing!');
-            input.value = '';
-          }
-        });
       });
     </script>
   </body>
