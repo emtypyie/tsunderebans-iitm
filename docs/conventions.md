@@ -2,6 +2,7 @@
 - Stack: Vue 3 (SFC) · vue-router 4 (HTML5 history) · Vite 6 · no backend, no TypeScript
 - Run the app: `npm run dev`
 - Build: `npm run build` · Preview build: `npm run preview`
+- HTML5 history routing means the production host MUST rewrite unknown paths to `index.html` (SPA fallback) — every deep link like `/study` is a direct URL. Dev/preview servers do this automatically.
 - Local gates (same idea as CI): `npm run format:check` · `npm run lint` · `npm run build` · `npm run test:smoke` (Playwright route smoke; needs prior build + Chromium)
 - Env: copy `.env.example` → `.env`. Lounge login needs `VITE_GOOGLE_CLIENT_ID` and `VITE_MEMBERSHIP_CHECK_URL` at build time.
 - Naming / structure notes:

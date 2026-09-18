@@ -1,64 +1,54 @@
 # Changelog
 
-All notable changes to this project are documented in this file.
-Releases are cut when the working tree is merged to `main` via PR. Entries
-for unreleased work live under **Unreleased** and move into a dated release
-section at cut time.
-
-Adopted fresh — work shipped before this file existed is not retrofitted here.
+All notable changes to this project are documented in this file. Work that has
+not been released yet lives under **Unreleased** and moves into a dated
+release section when it ships.
 
 ## [Unreleased]
 
 ### Added
 
-- Study Corner: new data catalogue `src/data/study/curriculum.js` — 4 branches
-  (Data Science, Electronic Systems, Aeronautics & Space Technology, Management
-  & Data Science) × 3 levels (Foundation, Diploma, Degree) with core and
-  elective listings, plus helpers (`subjectsFor`, `branchSubjectCount`,
-  `subjectKey`).
-- Study Corner: `src/data/study/resources.js` — per-subject lecture / notes /
-  past-paper links for Data Science, curated Drive-folder links, and the
-  resource-request form URL.
-- Study Corner: resource browsing is now a guided stepper
-  (`ResourceBrowser.vue`) — Branch → Level → Subject → Resources — with search
-  folded into the subject step, a per-step progress bar, and an empty state
-  that asks for missing resources instead of dead-ending.
-- Study Corner: `ResourceResults.vue` — step-4 results view with All /
-  Lectures / Notes / PYQs filters, curated Drive folders pinned on top, notes
-  grouped by contributor and PYQs by year, preview-then-show-all lists.
-- Study Corner: `StudyNook.vue` — decorative gold line-illustration band
-  (arched window, moon, reading lamp, open book, book stack, tea) bridging the
-  stepper and the doubts board.
-- Study Corner: Study hero shortened (compact padding + type overrides in
-  `StudyView.vue`) so the stepper is reachable in one glance.
+- Study Corner: a searchable course catalogue covering all 4 branches
+  (Data Science, Electronic Systems, Aeronautics & Space Technology,
+  Management & Data Science) across all 3 levels (Foundation, Diploma,
+  Degree).
+- Study Corner: subject resources — lecture videos, notes, and past papers for
+  every Data Science subject, plus curated Drive-folder links.
+- Study Corner: a guided step-by-step browser (Branch → Level → Subject →
+  Resources). Search now lives inside the subject step, a progress bar shows
+  where you are, and if a subject has no resources yet, you are invited to
+  submit them instead of hitting a dead end.
+- Study Corner: a results screen with All / Lectures / Notes / PYQs filters —
+  curated Drive folders stay pinned on top, notes are grouped by contributor,
+  and past papers are grouped by year.
+- Study Corner: a decorative artwork strip (gold line illustrations: arched
+  window, moon, reading lamp, open book, tea) between the browser and the
+  rest of the page.
+- Study Corner: a shorter page header so the browser is reachable without
+  scrolling.
 
 ### Changed
 
-- Study Corner: level picker upgraded from text chips to cards matching the
-  branch cards; branch grid centred with a 4-up layout; subject rows keep the
-  dense gold-rule selector language.
-- Study Corner: `StudyView.vue` no longer owns a shared search query — the
-  browser manages its own.
-- Footer colophon: copyright line now reads "© 2026 Sundarbans House. /
-  Maintained by WebOps Team, Sundarbans House.", and `--text3` → `--text2` for
-  `.fcopy`/`.fbl a` so the bottom row reads on black (was near-invisible
-  dark tan).
-- Footer: the large "Sundarbans" wordmark now renders in the script face
-  Samarkan (loaded as a webfont, Cinzel fallback) and is lifted from
-  `#080807` to `#1b1611` so it still reads as architecture behind the
-  colophon but is clearly visible on the black ground.
-- Study Corner: an experimental light "chapter" restyle (one `.study-page`
-  token override) was tried and **reverted** the same session — the page keeps
-  the site-wide black-and-gold dark theme.
-- Stepper step-change scroll now moves minimally (only when the heading leaves
-  the viewport, `block: nearest`) instead of jumping the page; headings carry
-  `scroll-margin` for the sticky nav.
+- Study Corner: level choice upgraded from plain text chips to full-width
+  cards matching the branch cards; the branch grid is now centred.
+- Footer: the bottom row reads clearly on black — a sharper copyright line
+  ("© 2026 Sundarbans House. / Maintained by WebOps Team, Sundarbans House.")
+  and brighter text.
+- Footer: the large "Sundarbans" wordmark now uses the script (Samarkan) style
+  and is lifted slightly off the background so it stays visible while reading
+  as part of the decoration.
+- URLs are now clean — pages open at `/study` instead of `/#/study`. Deep
+  links now depend on the host sending every unknown path back to
+  `index.html`; the deploy config for that ships with this change.
+- Study Corner: an experimental light restyle was tried and reverted the same
+  session — the page keeps the site-wide black-and-gold theme.
+- Study Corner: moving between steps scrolls the page gently (only when
+  needed) instead of jumping.
 
 ### Removed
 
-- Study Corner: the anonymous Doubts Board (`DoubtsBoard.vue`) and its seed
-  data (`public/data/doubts.json`) are gone; the page now flows Browser →
-  Nook → Tools → Contribute.
+- Study Corner: the anonymous Doubts Board is gone. The page now flows
+  Browse → Nook → Tools → Contribute.
 
 ## [Unreleased — test scaffold]
 
