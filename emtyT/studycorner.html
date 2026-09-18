@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -9,11 +9,13 @@
       type="image/png"
       href="https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911310/sundarbans/public/assets/house-logo.png"
     />
-    <!-- Same fonts as the real site: Cinzel (display) + Chillax (body). -->
+    <!-- Same fonts as the real site: Cinzel (display) + Chillax (body);
+         Samarkan for the footer wordmark. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://api.fontshare.com" />
     <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.cdnfonts.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&display=swap"
       rel="stylesheet"
@@ -22,10 +24,11 @@
       href="https://api.fontshare.com/v2/css?f%5B%5D=chillax@300,400,500,600,700&display=swap"
       rel="stylesheet"
     />
+    <link href="https://fonts.cdnfonts.com/css/samarkan" rel="stylesheet" />
 
     <style>
       /* =====================================================================
-         SUNDARBANS HOUSE — BLACK + GOLD BRAND THEME (port of style.css)
+         SUNDARBANS HOUSE â€” BLACK + GOLD BRAND THEME (port of style.css)
          ===================================================================== */
       :root {
         --font-display: 'Cinzel', Georgia, 'Times New Roman', serif;
@@ -578,7 +581,7 @@
         max-width: 560px;
       }
 
-      /* StudyView's scoped trim — the stepper below is the real content. */
+      /* StudyView's scoped trim â€” the stepper below is the real content. */
       .study-hero.page-hero--compact {
         padding: 4.75rem 0 2.25rem;
       }
@@ -1435,95 +1438,6 @@
       }
 
       /* =====================================================================
-         DOUBTS BOARD (DoubtsBoard component)
-         ===================================================================== */
-      .db-filters {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.6rem;
-        justify-content: center;
-        margin-bottom: 2.5rem;
-      }
-      .db-post {
-        margin-top: 0.55rem;
-      }
-      .db-scroll-box {
-        max-width: 820px;
-        margin: 0 auto 3rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-      }
-      .db-card {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: var(--rad2);
-        padding: 1.25rem 1.5rem;
-      }
-      .db-tag {
-        display: inline-block;
-        font-size: 0.65rem;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        background: rgba(213, 166, 58, 0.1);
-        color: var(--accent);
-        border: 1px solid var(--border-card);
-        padding: 0.15rem 0.55rem;
-        border-radius: 99px;
-        margin-bottom: 0.75rem;
-      }
-      .db-question {
-        font-size: 0.95rem;
-        font-weight: 500;
-        margin-bottom: 0.5rem;
-        line-height: 1.5;
-      }
-      .db-answer {
-        font-size: 0.85rem;
-        color: var(--text2);
-        line-height: 1.6;
-        margin-bottom: 0.75rem;
-        padding-left: 0.75rem;
-        border-left: 2px solid var(--border-card);
-      }
-      .db-footer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-size: 0.75rem;
-        color: var(--text3);
-      }
-      .db-upvote {
-        padding: 0.3rem 0.75rem;
-        font-size: 0.75rem;
-      }
-      .db-upvote:disabled {
-        cursor: default;
-        transform: none;
-      }
-      .db-input {
-        width: 100%;
-        background: rgba(213, 166, 58, 0.04);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        padding: 0.75rem 1rem;
-        color: var(--text);
-        font-family: inherit;
-        font-size: 0.9rem;
-        transition: border-color 0.2s;
-        box-sizing: border-box;
-      }
-      .db-input:focus {
-        outline: none;
-        border-color: var(--accent);
-      }
-      .db-input option {
-        background: var(--bg2);
-        color: var(--text);
-      }
-
-      /* =====================================================================
          STUDENT TOOLS (StudentTools component)
          ===================================================================== */
       .st-card {
@@ -1644,7 +1558,7 @@
          ===================================================================== */
       .footer {
         position: relative;
-        background: var(--color-bg-footer);
+        background: #000;
         padding: clamp(3rem, 5.5vw, 4.75rem) 0 clamp(1.5rem, 2.5vw, 2.25rem);
       }
       .footer::before {
@@ -1677,12 +1591,12 @@
         user-select: none;
         white-space: nowrap;
         text-align: center;
-        font-family: var(--font-display);
-        font-weight: 700;
-        font-size: 13cqi;
-        letter-spacing: 0.06em;
+        font-family: 'Samarkan', var(--font-display);
+        font-weight: 400;
+        font-size: 16cqi;
+        letter-spacing: 0;
         line-height: 1;
-        color: #080807;
+        color: #1b1611;
       }
       .footer-grid {
         display: grid;
@@ -1878,7 +1792,7 @@
       .fcopy,
       .fbl a {
         font-size: 0.75rem;
-        color: var(--text3);
+        color: var(--text2);
       }
       .fbl a {
         text-decoration: none;
@@ -2013,7 +1927,7 @@
           </div>
           <h1>Study <span class="tg">Corner</span></h1>
           <p>
-            Comprehensive academic resources for Foundation, Diploma and BS level students — lecture
+            Comprehensive academic resources for Foundation, Diploma and BS level students â€” lecture
             material, contributor notes and past papers, all in one place.
           </p>
         </div>
@@ -2028,7 +1942,7 @@
           </nav>
 
           <div class="rb-stage">
-            <!-- Step 1 — Branch -->
+            <!-- Step 1 â€” Branch -->
             <div id="rbStep1" class="rb-step-panel">
               <h2 class="rb-step-title" id="rb-head-1" tabindex="-1">Choose your branch</h2>
               <p class="rb-step-sub">
@@ -2037,14 +1951,14 @@
               <div class="rb-branch-grid" id="rbBranchGrid" role="group" aria-labelledby="rb-head-1"></div>
             </div>
 
-            <!-- Step 2 — Level -->
+            <!-- Step 2 â€” Level -->
             <div id="rbStep2" class="rb-step-panel" hidden>
               <h2 class="rb-step-title" id="rb-head-2" tabindex="-1">Choose your level</h2>
               <p class="rb-step-sub" id="rbLevelSub"></p>
               <div class="rb-level-grid" id="rbLevelGrid" role="group" aria-labelledby="rb-head-2"></div>
             </div>
 
-            <!-- Step 3 — Subject -->
+            <!-- Step 3 â€” Subject -->
             <div id="rbStep3" class="rb-step-panel" hidden>
               <h2 class="rb-step-title" id="rb-head-3" tabindex="-1">Choose a subject</h2>
               <p class="rb-step-sub" id="rbSubjectSub"></p>
@@ -2058,7 +1972,7 @@
                     id="rbSubjectSearch"
                     type="search"
                     class="form-input rb-search-input"
-                    placeholder="Search subjects or notes…"
+                    placeholder="Search subjects or notesâ€¦"
                     autocomplete="off"
                   />
                   <button id="rbSearchClear" type="button" class="rb-search-clear" aria-label="Clear search" hidden>
@@ -2073,7 +1987,7 @@
               <div id="rbSubjectArea"></div>
             </div>
 
-            <!-- Step 4 — Resources -->
+            <!-- Step 4 â€” Resources -->
             <div id="rbStep4" class="rb-step-panel" hidden>
               <h2 class="rb-step-title" id="rb-head-4" tabindex="-1">Resources</h2>
               <div id="rbResultsArea"></div>
@@ -2165,44 +2079,6 @@
         <p class="nook-caption">Every course has its corner.</p>
       </section>
 
-      <!-- ======================= DOUBTS BOARD ======================= -->
-      <section class="section tone-b" id="doubt-board">
-        <div class="container">
-          <div class="sec-hdr">
-            <div class="section-tag">Community</div>
-            <h2 class="section-title-xl">Anonymous <span class="tg">Doubts Board</span></h2>
-            <p class="sec-sub">Community-answered doubts. Ask anonymously, learn together.</p>
-          </div>
-
-          <div class="db-filters" id="dbFilters" role="group" aria-label="Filter doubts by subject"></div>
-
-          <div class="db-scroll-box" id="dbScrollBox"></div>
-
-          <div class="card-base" style="max-width: 820px; margin: 0 auto; padding: 2.5rem 2rem; text-align: center">
-            <h3 style="font-family: var(--font-display); font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem">
-              Have a Doubt?
-            </h3>
-            <p
-              style="color: var(--text2); margin-bottom: 1.5rem; font-size: 0.95rem; max-width: 600px; margin-left: auto; margin-right: auto"
-            >
-              Submit your doubts anonymously using our Google form. Community members or WebOps will
-              review and post answers on the board.
-            </p>
-            <a
-              href="https://forms.gle/vZox3LpVrXti74UH7"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn btn--primary"
-            >
-              Open Doubts Form
-              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
-              </svg>
-            </a>
-          </div>
-        </div>
-      </section>
-
       <!-- ======================= STUDENT TOOLS ======================= -->
       <section class="section tone-a" id="student-tools">
         <div class="container">
@@ -2290,9 +2166,9 @@
               <h2 class="cc-title">Share Your Notes</h2>
               <p class="cc-purpose"><strong>Purpose:</strong> Community-driven academic content</p>
               <ul class="cc-points">
-                <li><span class="cc-bullet" aria-hidden="true">✦</span>Upload notes &amp; resources</li>
-                <li><span class="cc-bullet" aria-hidden="true">✦</span>Help juniors &amp; peers</li>
-                <li><span class="cc-bullet" aria-hidden="true">✦</span>WebOps review ensures quality</li>
+                <li><span class="cc-bullet" aria-hidden="true">âœ¦</span>Upload notes &amp; resources</li>
+                <li><span class="cc-bullet" aria-hidden="true">âœ¦</span>Help juniors &amp; peers</li>
+                <li><span class="cc-bullet" aria-hidden="true">âœ¦</span>WebOps review ensures quality</li>
               </ul>
               <a class="btn btn--primary cc-cta" href="https://forms.gle/c86b55AZ517Q8Ahg6" target="_blank" rel="noopener noreferrer">
                 Submit a Resource
@@ -2312,9 +2188,9 @@
               <h2 class="cc-title">Request a Resource</h2>
               <p class="cc-purpose"><strong>Purpose:</strong> Identify missing academic needs</p>
               <ul class="cc-points">
-                <li><span class="cc-bullet" aria-hidden="true">✦</span>Request missing topics</li>
-                <li><span class="cc-bullet" aria-hidden="true">✦</span>Exam-focused content</li>
-                <li><span class="cc-bullet" aria-hidden="true">✦</span>Helps WebOps prioritize</li>
+                <li><span class="cc-bullet" aria-hidden="true">âœ¦</span>Request missing topics</li>
+                <li><span class="cc-bullet" aria-hidden="true">âœ¦</span>Exam-focused content</li>
+                <li><span class="cc-bullet" aria-hidden="true">âœ¦</span>Helps WebOps prioritize</li>
               </ul>
               <a class="btn btn--outline cc-cta" href="https://forms.gle/KNm4hyupaG22Huxd6" target="_blank" rel="noopener noreferrer">
                 Request a Resource
@@ -2348,7 +2224,7 @@
                 <span class="fbrand-sub">IIT Madras BS Degree</span>
               </span>
             </div>
-            <p class="ftagline">Empowering minds, building futures — one student at a time.</p>
+            <p class="ftagline">Empowering minds, building futures â€” one student at a time.</p>
             <a href="#" class="fcta">
               <span>Join the House</span>
               <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -2426,10 +2302,10 @@
               aria-hidden="true"
               class="fiit-logo"
             />
-            IIT Madras Affiliated
+            Affiliated to Indian Institute Of Technology, Madras
           </p>
           <div class="fbl">
-            <span class="fcopy">© 2026 Sundarbans House WebOps Team. All Rights Reserved.</span>
+            <span class="fcopy">© 2026 Sundarbans House.<br />Maintained by WebOps Team, Sundarbans House.</span>
             <a href="#">Privacy</a>
             <a href="#">Terms</a>
             <a href="#">Contact</a>
@@ -2441,7 +2317,7 @@
     <script>
       'use strict';
       /* =====================================================================
-         DATA — edit anything below; the page re-renders from it.
+         DATA â€” edit anything below; the page re-renders from it.
          ===================================================================== */
       var REQUEST_RESOURCE_URL = 'https://forms.gle/KNm4hyupaG22Huxd6';
 
@@ -2479,11 +2355,11 @@
               { code: 'BSCS2001', name: 'Database Management Systems' },
               { code: 'BSCS2002', name: 'Programming, Data Structures and Algorithms using Python' },
               { code: 'BSCS2003', name: 'Modern Application Development I' },
-              { code: 'BSCS2003P', name: 'Modern Application Development I — Project' },
+              { code: 'BSCS2003P', name: 'Modern Application Development I â€” Project' },
               { code: 'BSSE2001', name: 'System Commands', description: 'Linux and shell scripting' },
               { code: 'BSCS2005', name: 'Programming Concepts using Java' },
               { code: 'BSCS2006', name: 'Modern Application Development II' },
-              { code: 'BSCS2006P', name: 'Modern Application Development II — Project' },
+              { code: 'BSCS2006P', name: 'Modern Application Development II â€” Project' },
             ],
             electives: [
               {
@@ -2509,7 +2385,7 @@
                 label: 'ML & AI electives',
                 subjects: [
                   { code: 'BSDA2001', name: 'Introduction to Deep Learning and Generative AI' },
-                  { code: 'BSDA2001P', name: 'Deep Learning and Generative AI — Project' },
+                  { code: 'BSDA2001P', name: 'Deep Learning and Generative AI â€” Project' },
                   { code: 'BSDA5004', name: 'Large Language Models' },
                   { code: 'BSDA5005', name: 'Introduction to Natural Language Processing (i-NLP)' },
                   { code: 'BSDA5006', name: 'Deep Learning for Computer Vision' },
@@ -2611,15 +2487,15 @@
         },
       };
 
-      /* Resources, keyed by subject code — same shape as resources.js.
+      /* Resources, keyed by subject code â€” same shape as resources.js.
          Add links under lectures / notes / pyq. Titles with "(by X)" are
          grouped by contributor in the Notes view; PYQ titles are grouped by
          the year they mention. */
       var RESOURCES = {
         BSMA1001: {
           lectures: [
-            { title: 'Week 1 – Functions and Limits', link: 'https://drive.google.com/drive/folders/0-sample' },
-            { title: 'Week 2 – Derivatives', link: 'https://drive.google.com/drive/folders/0-sample', badge: 'Popular' },
+            { title: 'Week 1 â€“ Functions and Limits', link: 'https://drive.google.com/drive/folders/0-sample' },
+            { title: 'Week 2 â€“ Derivatives', link: 'https://drive.google.com/drive/folders/0-sample', badge: 'Popular' },
           ],
           notes: [
             { title: 'Complete MDS1 notes (by Rohan K)' , link: 'https://drive.google.com/drive/folders/0-sample' },
@@ -2633,8 +2509,8 @@
         },
         BSMA1002: {
           lectures: [
-            { title: 'Week 1 – Data and Distibutions', link: 'https://drive.google.com/drive/folders/0-sample' },
-            { title: 'Week 2 – Probability', link: 'https://drive.google.com/drive/folders/0-sample' },
+            { title: 'Week 1 â€“ Data and Distibutions', link: 'https://drive.google.com/drive/folders/0-sample' },
+            { title: 'Week 2 â€“ Probability', link: 'https://drive.google.com/drive/folders/0-sample' },
           ],
           notes: [],
           pyq: [
@@ -2660,17 +2536,6 @@
         diplomaPyq: 'https://drive.google.com/drive/folders/0-diploma-pyq',
       };
 
-      /* Doubts board placeholders (sample; the app fetches /data/doubts.json). */
-      var DOUBTS = [
-        { id: 'plh-math-1', subject: 'Math', question: 'How do you prove a function is one-to-one?', answer: 'Exactly one of f(x)=f(y) implies x=y. Try by contradiction: assume f(a)=f(b) with a!=b and derive a contradiction.', time: '12 Sep, 14:32', upvotes: 12 },
-        { id: 'plh-python-1', subject: 'Python', question: 'Difference between list.append and list.extend?', answer: 'append adds one object; extend iterates and adds each element.', time: '11 Sep, 09:10', upvotes: 8 },
-        { id: 'plh-stats-1', subject: 'Stats', question: 'When to use median over mean?', answer: 'Median is robust to outliers — useful for skewed distributions like income data.', time: '10 Sep, 18:45', upvotes: 21 },
-        { id: 'plh-dbms-1', subject: 'DBMS', question: 'What is the difference between a primary key and a unique key?', answer: 'Primary key cannot be NULL and only one per table; unique key allows one NULL per column and can appear many times per table.', time: '08 Sep, 11:22', upvotes: 17 },
-        { id: 'plh-ml-1', subject: 'ML', question: 'Why is gradient descent sensitive to feature scaling?', answer: 'Unscaled features make the loss surface elliptical, so the optimizer takes slow zig-zag paths; scaling turns it spherical.', time: '05 Sep, 20:04', upvotes: 9, badge: 'Answered' },
-        { id: 'plh-dsa-1', subject: 'DSA', question: 'Why is quicksort O(n log n) on average?', answer: 'Each partition level splits the array roughly in half, and there are about log n levels with O(n) work per level.', time: '02 Sep, 13:51', upvotes: 5 },
-        { id: 'plh-math-2', subject: 'Math', question: 'How do matrix eigenvalues connect to Markov chains?', answer: 'The stationary distribution is the eigenvector for eigenvalue 1 of the transition matrix.', time: '30 Aug, 16:38', upvotes: 6 },
-        { id: 'plh-python-2', subject: 'Python', question: 'Should I use list comprehension or a for loop?', answer: 'Comprehensions are faster and cleaner for simple transforms; use loops when you need side effects.', time: '28 Aug, 10:15', upvotes: 3 },
-      ];
 
       /* =====================================================================
          ICONS (lucide-style inline SVGs, generated by name)
@@ -2794,7 +2659,7 @@
         }, 0);
         var parts = [coreN + ' core subject' + (coreN === 1 ? '' : 's')];
         if (electiveN) parts.push(electiveN + ' elective' + (electiveN === 1 ? '' : 's'));
-        return parts.join(' · ');
+        return parts.join(' Â· ');
       }
 
       /* =====================================================================
@@ -2958,7 +2823,6 @@
         renderLevelGrid();
         renderSubjects();
         renderResults();
-        renderDoubts();
       }
 
       function renderStepper() {
@@ -2969,7 +2833,7 @@
           { n: 4, label: 'Resources' },
         ];
         var summary = {
-          1: currentBranch() ? currentBranch().short + ' · ' + currentBranch().name : '',
+          1: currentBranch() ? currentBranch().short + ' Â· ' + currentBranch().name : '',
           2: currentLevel() ? currentLevel().title : '',
           3: state.subject ? state.subject.name : '',
         };
@@ -3010,12 +2874,12 @@
           $('rbStep' + i).hidden = state.step !== i;
         }
         $('rbLevelSub').textContent = currentBranch()
-          ? currentBranch().name + ' runs three levels — pick where you are.'
+          ? currentBranch().name + ' runs three levels â€” pick where you are.'
           : '';
         $('rbSubjectSub').textContent =
           (currentLevel() ? currentLevel().title : '') +
-          (currentBranch() ? ' · ' + currentBranch().name : '') +
-          ' — search or pick below.';
+          (currentBranch() ? ' Â· ' + currentBranch().name : '') +
+          ' â€” search or pick below.';
       }
 
       function renderBranchGrid() {
@@ -3137,7 +3001,7 @@
         });
       }
 
-      /* ── Results (mirror ResourceResults.vue) ──────────────────────── */
+      /* â”€â”€ Results (mirror ResourceResults.vue) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
       function parseAuthor(title) {
         var match = String(title).match(/\(by\s+(.+?)\)\s*$/i);
         return match ? match[1].trim() : 'Unknown';
@@ -3146,7 +3010,7 @@
         var cleaned = String(title || '')
           .replace(/\s*\(by\s+.+?\)\s*$/i, '')
           .trim();
-        cleaned = cleaned.replace(/^[\s\-–:]+/, '');
+        cleaned = cleaned.replace(/^[\s\-â€“:]+/, '');
         return cleaned || String(title || 'Untitled');
       }
       function parsePYQYear(title) {
@@ -3199,7 +3063,7 @@
           if (link) {
             items.push({
               key: 'drive-notes-' + subject.code,
-              title: 'Subject-wise notes — ' + subject.name,
+              title: 'Subject-wise notes â€” ' + subject.name,
               link: link,
               typeLabel: 'Drive folder',
               cta: 'Open folder',
@@ -3436,185 +3300,11 @@
           '</div>';
       }
 
-      /* =====================================================================
-         DOUBTS BOARD (mirror DoubtsBoard.vue — reading + answering + upvotes)
-         ===================================================================== */
-      var dbFilter = 'all';
-      var dbVoted = {};
-      var dbAnswers = {};
-      var dbDraft = {};
-
-      function storageGet(key, fallback) {
-        try {
-          var raw = localStorage.getItem(key);
-          if (raw === null) return fallback;
-          var parsed = JSON.parse(raw);
-          return parsed === null ? fallback : parsed;
-        } catch (e) {
-          return fallback;
-        }
-      }
-      function storageSet(key, value) {
-        try {
-          localStorage.setItem(key, JSON.stringify(value));
-        } catch (e) {
-          /* ignore */
-        }
-      }
-      function nowLabel() {
-        return new Date().toLocaleString([], {
-          day: '2-digit',
-          month: 'short',
-          hour: '2-digit',
-          minute: '2-digit',
-        });
-      }
-      function normalizeSubject(v) {
-        var map = {
-          math: 'Math', mathematics: 'Math', stats: 'Stats', statistics: 'Stats',
-          python: 'Python', dbms: 'DBMS', dsa: 'DSA', ml: 'ML',
-          'machine learning': 'ML', other: 'Other',
-        };
-        return map[String(v || '').trim().toLowerCase()] || String(v || 'Other');
-      }
-      function hydrateDoubt(d) {
-        return {
-          id: d.id,
-          subject: normalizeSubject(d.subject),
-          question: d.question,
-          answer: String(d.answer || '').trim(),
-          time: String(d.time || 'Recently'),
-          upvotes: Number(d.upvotes) || 0,
-          isStudent: Boolean(d.isStudent),
-        };
-      }
-      var dbDoubts = [];
-      function myDoubtsCount() {
-        return dbDoubts.filter(function (d) { return d.isStudent; }).length;
-      }
-      function visibleFilters() {
-        return [
-          { key: 'all', label: 'All Subjects' },
-          { key: 'Math', label: 'Mathematics' },
-          { key: 'Stats', label: 'Statistics' },
-          { key: 'Python', label: 'Python' },
-          { key: 'DBMS', label: 'DBMS' },
-          { key: 'DSA', label: 'DSA' },
-          { key: 'ML', label: 'Machine Learning' },
-          { key: 'answer-doubts', label: 'Answer Doubts' },
-        ].map(function (f) {
-          if (f.key === 'my-doubts') return Object.assign({}, f, { label: 'My Doubts (' + myDoubtsCount() + ')' });
-          return f;
-        }).filter(function (f) {
-          return f.key !== 'my-doubts' || myDoubtsCount() > 0;
-        });
-      }
-      function filteredDoubts() {
-        var active = dbFilter;
-        var list = dbDoubts;
-        if (active === 'my-doubts') list = list.filter(function (d) { return d.isStudent; });
-        else if (active === 'answer-doubts') list = list.filter(function (d) { return !String(d.answer || '').trim(); });
-        else if (active !== 'all') list = list.filter(function (d) { return d.subject === active; });
-        return list;
-      }
-      function emptyDoubtsLabel() {
-        if (dbFilter === 'my-doubts') return 'You have not posted any doubts yet.';
-        if (dbFilter === 'answer-doubts') return 'No unanswered doubts right now.';
-        return 'No doubts in this subject yet.';
-      }
-      function upvoteDoubt(id) {
-        if (dbVoted[id]) return;
-        dbVoted = Object.assign({}, dbVoted, { [id]: true });
-        storageSet('sb_voted_doubts_v1', dbVoted);
-        renderDoubts();
-      }
-      function postAnswer(id) {
-        var answer = String(dbDraft[id] || '').trim();
-        if (answer.length < 8) return;
-        dbAnswers = Object.assign({}, dbAnswers, {
-          [id]: { answer: answer, time: nowLabel() },
-        });
-        storageSet('sb_doubt_answers_v1', dbAnswers);
-        dbDoubts = dbDoubts.map(function (d) {
-          return d.id === id ? Object.assign({}, d, { answer: answer }) : d;
-        });
-        delete dbDraft[id];
-        renderDoubts();
-      }
-      function renderDoubts() {
-        var filters = visibleFilters();
-        var html = '';
-        filters.forEach(function (f) {
-          html +=
-            '<button type="button" class="sel" aria-pressed="' + (dbFilter === f.key) + '" data-dfilter="' + f.key + '">' +
-            f.label + '</button>';
-        });
-        $('dbFilters').innerHTML = html;
-        $('dbFilters').querySelectorAll('[data-dfilter]').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            dbFilter = btn.getAttribute('data-dfilter');
-            renderDoubts();
-          });
-        });
-
-        var list = filteredDoubts();
-        var body = '';
-        if (list.length) {
-          list.forEach(function (d) {
-            var voted = Boolean(dbVoted[d.id]);
-            body += '<div class="db-card">';
-            body += '<span class="db-tag">' + d.subject + '</span>';
-            body += '<div class="db-question">' + d.question + '</div>';
-            if (d.answer) body += '<div class="db-answer">' + d.answer + '</div>';
-            if (dbFilter === 'answer-doubts' && !d.answer) {
-              body +=
-                '<div style="margin: 0.75rem 0 0.5rem">' +
-                '<textarea class="db-input" rows="3" data-answer="' + d.id + '" placeholder="Write an answer for the community...">' +
-                (dbDraft[d.id] || '') + '</textarea>' +
-                '<button type="button" class="btn btn--outline btn--sm db-post" data-post="' + d.id + '">Post Answer</button>' +
-                '</div>';
-            }
-            body += '<div class="db-footer">';
-            body += '<span>' + d.time + '</span>';
-            body +=
-              '<button type="button" class="sel db-upvote" aria-pressed="' + voted + '"' +
-              (voted ? ' disabled' : '') + ' data-upvote="' + d.id + '">' +
-              (voted ? '✓ Voted' : icon('thumbsUp', 13, 1.9) + ' ' + d.upvotes) +
-              '</button>';
-            body += '</div></div>';
-          });
-        } else {
-          body += '<p style="text-align: center; color: var(--text3); padding: 2rem">' + emptyDoubtsLabel() + '</p>';
-        }
-        $('dbScrollBox').innerHTML = body;
-
-        $('dbScrollBox').querySelectorAll('[data-upvote]').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            upvoteDoubt(btn.getAttribute('data-upvote'));
-          });
-        });
-        $('dbScrollBox').querySelectorAll('[data-answer]').forEach(function (ta) {
-          var id = ta.getAttribute('data-answer');
-          ta.addEventListener('input', function () {
-            dbDraft[id] = ta.value;
-          });
-        });
-        $('dbScrollBox').querySelectorAll('[data-post]').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            postAnswer(btn.getAttribute('data-post'));
-          });
-        });
-      }
 
       /* =====================================================================
          INIT
          ===================================================================== */
       document.addEventListener('DOMContentLoaded', function () {
-        // Restore persisted vote state + answers, seed placeholder doubts.
-        dbVoted = storageGet('sb_voted_doubts_v1', {});
-        dbAnswers = storageGet('sb_doubt_answers_v1', {});
-        dbDoubts = DOUBTS.map(hydrateDoubt);
-
         // Search input
         $('rbSubjectSearch').addEventListener('input', function () {
           state.search = $('rbSubjectSearch').value;

@@ -28,7 +28,7 @@ Sundarbans-House_Vue-main/
 │   │   └── frames/                   # Animation frames (001–240 JPEGs)
 │   │                                 # Used for scroll-based video animation
 │   └── data/
-│       └── doubts.json               # Static FAQ/doubts data
+│       └── certificates.json           # Certificate verification entries
 │
 ├── sundarbans/                       # Legacy standalone HTML version
 │   ├── login.html / login.css / login.js

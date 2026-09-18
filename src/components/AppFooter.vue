@@ -98,10 +98,10 @@
             aria-hidden="true"
             class="fiit-logo"
           />
-          IIT Madras Affiliated
+          Affiliated to Indian Institute Of Technology, Madras
         </p>
         <div class="fbl">
-          <span class="fcopy">© 2026 Sundarbans House WebOps Team. All Rights Reserved.</span>
+          <span class="fcopy">© 2026 Sundarbans House.<br />Maintained by WebOps Team, Sundarbans House.</span>
           <a href="#">Privacy</a>
           <a href="#">Terms</a>
           <router-link to="/contact">Contact</router-link>

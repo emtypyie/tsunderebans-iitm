@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 
 // Every route is lazy so a visitor to "/" downloads only the homepage chunk.
 // Paths must stay literal strings — Vite needs them statically analysable to
@@ -99,7 +99,7 @@ function waitForAnchor(hash, token) {
 }
 
 export const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
   scrollBehavior(to) {
     const token = ++scrollToken;
@@ -164,7 +164,9 @@ router.onError((error, to) => {
   // Storage disabled (private mode / embedded webview) means the loop guard
   // cannot be armed. One broken page beats an unbreakable reload loop.
   if (!writeReloadMarker(to.fullPath)) return;
-  window.location.hash = to.fullPath;
+  // History mode: load the URL directly so the host's SPA fallback serves the
+  // fresh manifest instead of a stale chunk hash still living in the URL bar.
+  window.location.replace(to.fullPath);
   window.location.reload();
 });
 

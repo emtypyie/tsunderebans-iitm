@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 /**
- * Every real app route from src/router/index.js (hash history).
+ * Every real app route from src/router/index.js (HTML5 history mode).
  * Catch-all NotFound is omitted — a nonsense path still mounts #app, but
  * the goal is to smoke the declared pages, not 404 UX.
  *
@@ -36,18 +36,15 @@ const ROUTES = [
   '/verify-certificate',
 ];
 
-function hashUrl(path) {
-  // Hash router: base is origin only; route lives after #.
-  return path === '/' ? '/#/' : `/#${path}`;
+// HTML5 history: the route is the path itself.
+function routeUrl(path) {
+  return path;
 }
 
-/** Path portion of location.hash (no leading #, no query). e.g. "#/about?x=1" → "/about" */
-function hashPathFromUrl(url) {
-  let hash = new URL(url).hash || '';
-  if (hash.startsWith('#')) hash = hash.slice(1);
-  if (hash.includes('?')) hash = hash.split('?')[0];
-  if (!hash || hash === '') return '/';
-  return hash.startsWith('/') ? hash : `/${hash}`;
+/** Path portion of a URL (no query, no hash). e.g. "/about?x=1#a" → "/about" */
+function pathFromUrl(url) {
+  const pathname = new URL(url).pathname || '/';
+  return pathname;
 }
 
 // Auth-gated paths may end at /login when no sundarbans_auth_token is set.
@@ -75,21 +72,21 @@ test.describe('route smoke', () => {
       });
 
       // Prefer 'load' over 'networkidle' — app always pulls fonts/GSI; many pages Unsplash.
-      await page.goto(hashUrl(path), { waitUntil: 'load' });
+      await page.goto(routeUrl(path), { waitUntil: 'load' });
 
       const app = page.locator('#app');
       await expect(app).toBeVisible();
 
-      // Hash path must match the declared route (or login redirect for auth-gated paths).
+      // Path must match the declared route (or login redirect for auth-gated paths).
       const finalUrl = page.url();
-      const actual = hashPathFromUrl(finalUrl);
+      const actual = pathFromUrl(finalUrl);
       if (AUTH_REDIRECT_ROUTES.has(path)) {
         expect(
           actual === path || actual === '/login',
           `${path} should stay put or redirect to /login; got ${finalUrl}`
         ).toBe(true);
       } else {
-        expect(actual, `expected hash path ${path} for ${finalUrl}`).toBe(path);
+        expect(actual, `expected path ${path} for ${finalUrl}`).toBe(path);
       }
 
       // Declared routes must not render NotFoundView (distinctive badge + 404 heading).

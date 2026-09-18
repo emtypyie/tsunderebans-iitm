@@ -1475,7 +1475,7 @@ section.rs.revealed > * {
    of content into black, not by hitting a border. */
 .footer {
   position: relative;
-  background: var(--color-bg-footer);
+  background: #000;
   padding: clamp(3rem, 5.5vw, 4.75rem) 0 clamp(1.5rem, 2.5vw, 2.25rem);
 }
 
@@ -1529,14 +1529,15 @@ section.rs.revealed > * {
   user-select: none;
   white-space: nowrap;
   text-align: center;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 13cqi;
-  letter-spacing: 0.06em;
+  font-family: 'Samarkan', var(--font-display);
+  font-weight: 400;
+  font-size: 16cqi;
+  letter-spacing: 0;
   line-height: 1;
-  /* Two points above pure black. Any brighter and it stops being architecture
-     and starts being a watermark competing with the colophon. */
-  color: #080807;
+  /* The script face is thinner and warmer than Cinzel, so it needs a few more
+     points to read as architecture behind the colophon — still firmly below
+     the content, but no longer a silhouette of the black ground. */
+  color: #1b1611;
 }
 
 /* ── Grid: a wide brand block, then three narrow columns ───────────── */
@@ -1776,7 +1777,7 @@ section.rs.revealed > * {
 .fcopy,
 .fbl a {
   font-size: 0.75rem;
-  color: var(--text3);
+  color: var(--text2);
 }
 
 .fbl a {

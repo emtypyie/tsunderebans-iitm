@@ -37,15 +37,32 @@ Adopted fresh — work shipped before this file existed is not retrofitted here.
 - Study Corner: level picker upgraded from text chips to cards matching the
   branch cards; branch grid centred with a 4-up layout; subject rows keep the
   dense gold-rule selector language.
-- Study Corner: `StudyView.vue` no longer owns a shared search query —
-  `ResourceBrowser` and `DoubtsBoard` manage their own.
+- Study Corner: `StudyView.vue` no longer owns a shared search query — the
+  browser manages its own.
+- Footer colophon: copyright line now reads "© 2026 Sundarbans House. /
+  Maintained by WebOps Team, Sundarbans House.", and `--text3` → `--text2` for
+  `.fcopy`/`.fbl a` so the bottom row reads on black (was near-invisible
+  dark tan).
+- Footer: the large "Sundarbans" wordmark now renders in the script face
+  Samarkan (loaded as a webfont, Cinzel fallback) and is lifted from
+  `#080807` to `#1b1611` so it still reads as architecture behind the
+  colophon but is clearly visible on the black ground.
+- Study Corner: an experimental light "chapter" restyle (one `.study-page`
+  token override) was tried and **reverted** the same session — the page keeps
+  the site-wide black-and-gold dark theme.
 - Stepper step-change scroll now moves minimally (only when the heading leaves
   the viewport, `block: nearest`) instead of jumping the page; headings carry
   `scroll-margin` for the sticky nav.
+
+### Removed
+
+- Study Corner: the anonymous Doubts Board (`DoubtsBoard.vue`) and its seed
+  data (`public/data/doubts.json`) are gone; the page now flows Browser →
+  Nook → Tools → Contribute.
 
 ## [Unreleased — test scaffold]
 
 - `emtyT/studycorner.html` — a standalone, single-file, hand-editable mirror of
   the Study Corner page (real fonts/Brand CSS, navbar, hero, stepper, nook,
-  doubts board, tools, contribute cards, footer) with sample data at the top of
-  its `<script>`. Intended as a scratch page for UI iteration, not shipped.
+  tools, contribute cards, footer) with sample data at the top of its
+  `<script>`. Intended as a scratch page for UI iteration, not shipped.

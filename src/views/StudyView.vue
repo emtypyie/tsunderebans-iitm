@@ -5,11 +5,11 @@
 
       The resource browser comes first and immediately: a guided stepper that
       walks Branch → Level → Subject → Resources, with search folded into the
-      subject step. Everything below it is secondary — a community board, a
-      shelf of external tools, and two forms — and the two page tones alternate
-      one per chapter so the reader can feel where one ends and the next begins.
+      subject step. Everything below it is secondary — a shelf of external
+      tools and two forms — and the two page tones alternate one per chapter
+      so the reader can feel where one ends and the next begins.
 
-      Tone rhythm: Hero · Browser A · Doubts B · Tools A · Contribute B.
+      Tone rhythm: Hero · Browser A · Nook A · Tools A · Contribute B.
     -->
     <PageHero
       class="study-hero"
@@ -26,8 +26,6 @@
 
     <StudyNook />
 
-    <DoubtsBoard />
-
     <StudentTools />
 
     <ContributeCards />
@@ -39,7 +37,6 @@ import { useScrollReveal } from '../composables/useAnimations.js';
 import PageHero from '../components/PageHero.vue';
 import ResourceBrowser from '../components/study/ResourceBrowser.vue';
 import StudyNook from '../components/study/StudyNook.vue';
-import DoubtsBoard from '../components/study/DoubtsBoard.vue';
 import StudentTools from '../components/study/StudentTools.vue';
 import ContributeCards from '../components/study/ContributeCards.vue';
 

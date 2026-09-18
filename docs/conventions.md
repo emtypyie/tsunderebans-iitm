@@ -1,5 +1,5 @@
 # Conventions — Sundarbans House
-- Stack: Vue 3 (SFC) · vue-router 4 (hash history) · Vite 6 · no backend, no TypeScript
+- Stack: Vue 3 (SFC) · vue-router 4 (HTML5 history) · Vite 6 · no backend, no TypeScript
 - Run the app: `npm run dev`
 - Build: `npm run build` · Preview build: `npm run preview`
 - Local gates (same idea as CI): `npm run format:check` · `npm run lint` · `npm run build` · `npm run test:smoke` (Playwright route smoke; needs prior build + Chromium)
