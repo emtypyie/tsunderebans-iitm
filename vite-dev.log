@@ -1,0 +1,72 @@
+
+> sundarbans-house@1.0.0 dev
+> vite
+
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m6824[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[2m9:37:11 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/study/ResourceBrowser.vue, /src/components/study/ResourceBrowser.vue?vue&type=style&index=0&scoped=ecd14101&lang.css[22m
+[2m9:38:04 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/StudyView.vue[22m
+[2m9:38:08 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/StudyView.vue[22m
+[2m9:38:24 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mindex.html[22m
+[2m9:38:25 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/App.vue, /src/App.vue?vue&type=style&index=0&lang.css[22m
+[2m9:38:25 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/assets/navigation.css[22m
+[2m9:38:25 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/assets/style.css[22m
+[2m9:38:25 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/AppFooter.vue[22m
+[2m9:38:26 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/App.vue, /src/components/navigation/VerticalNavigation.vue[22m
+[2m9:38:26 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/navigation/VerticalNavigation.vue[22m
+[2m9:38:26 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/navigation/VerticalNavigation.vue, /src/components/navigation/VerticalNavigation.vue?vue&type=style&index=0&scoped=be5eb0d0&lang.css[22m
+[2m9:38:26 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/PageHero.vue[22m
+[2m9:38:27 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/study/ContributeCards.vue, /src/components/study/ContributeCards.vue?vue&type=style&index=0&scoped=92a620c4&lang.css[22m
+[2m9:38:27 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/study/DoubtsBoard.vue, /src/components/study/DoubtsBoard.vue?vue&type=style&index=0&scoped=ad7ad297&lang.css[22m
+[2m9:38:27 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/study/ResourceBrowser.vue[22m
+[2m9:38:27 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/study/ResourceResults.vue[22m
+[2m9:38:27 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/study/StudentTools.vue, /src/components/study/StudentTools.vue?vue&type=style&index=0&scoped=82c030e5&lang.css[22m
+[2m9:38:27 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/HomeView.vue, /src/views/StudyView.vue[22m
+[2m9:38:27 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/study/ResourceBrowser.vue[22m
+[2m9:38:27 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/study/ResourceBrowser.vue, /src/components/study/ResourceResults.vue[22m
+[2m9:38:27 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/main.js[22m
+[2m9:38:27 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/router/index.js[22m
+[2m9:38:28 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/HomeView.vue, /src/views/HomeView.vue?vue&type=style&index=0&scoped=b4e148ca&lang.css[22m
+[2m9:38:29 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/StudyView.vue[22m
+[2m9:38:29 am[22m [36m[1m[vite][22m[39m [32mvite.config.js changed, restarting server...[39m
+[2m9:38:29 am[22m [36m[1m[vite][22m[39m server restarted.
+[2m9:39:00 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mindex.html[22m
+[2m9:39:00 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/assets/navigation.css[22m
+[2m9:39:00 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/assets/style.css[22m
+[2m9:39:00 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/StudyView.vue[22m
+[2m9:39:00 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/router/index.js[22m
+[2m9:39:00 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/App.vue, /src/App.vue?vue&type=style&index=0&lang.css[22m
+[2m9:39:00 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/App.vue, /src/components/navigation/VerticalNavigation.vue[22m
+[2m9:39:00 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/navigation/VerticalNavigation.vue[22m
+[2m9:39:00 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/main.js[22m
+[2m9:39:00 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/AppFooter.vue[22m
+[2m9:39:00 am[22m [36m[1m[vite][22m[39m [32mvite.config.js changed, restarting server...[39m
+[2m9:39:00 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/PageHero.vue[22m
+[2m9:39:00 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/study/ContributeCards.vue, /src/components/study/ContributeCards.vue?vue&type=style&index=0&scoped=92a620c4&lang.css[22m
+[2m9:39:00 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/navigation/VerticalNavigation.vue, /src/components/navigation/VerticalNavigation.vue?vue&type=style&index=0&scoped=be5eb0d0&lang.css[22m
+[2m9:39:00 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/study/StudentTools.vue, /src/components/study/StudentTools.vue?vue&type=style&index=0&scoped=82c030e5&lang.css[22m
+[2m9:39:00 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/study/DoubtsBoard.vue, /src/components/study/DoubtsBoard.vue?vue&type=style&index=0&scoped=ad7ad297&lang.css[22m
+[2m9:39:00 am[22m [36m[1m[vite][22m[39m server restarted.
+[2m9:43:14 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/study/ResourceBrowser.vue?vue&type=style&index=0&scoped=ecd14101&lang.css[22m
+[2m9:45:11 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/StudyView.vue[22m
+[2m9:45:24 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/StudyView.vue[22m
+[2m9:45:31 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/study/ResourceBrowser.vue[22m
+[2m9:45:39 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/study/ResourceBrowser.vue[22m
+[2m9:45:50 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/study/ResourceBrowser.vue?vue&type=style&index=0&scoped=ecd14101&lang.css[22m
+[2m9:45:58 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/study/ResourceBrowser.vue?vue&type=style&index=0&scoped=ecd14101&lang.css[22m
+[2m9:47:24 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/study/ResourceBrowser.vue[22m
+[2m9:49:12 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/study/ResourceBrowser.vue[22m
+[2m9:49:16 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/study/ResourceBrowser.vue?vue&type=style&index=0&scoped=ecd14101&lang.css[22m
+[2m10:00:26 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/StudyView.vue[22m
+[2m10:00:29 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/StudyView.vue[22m
+[2m10:00:33 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/study/ResourceBrowser.vue?vue&type=style&index=0&scoped=ecd14101&lang.css[22m
+[2m10:10:40 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2memtyT/studycorner.html[22m
+[2m10:10:48 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2memtyT/studycorner.html[22m
+[2m10:22:26 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2memtyT/studycorner.html[22m
+[2m10:22:42 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2memtyT/studycorner.html[22m
+[2m10:22:43 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2memtyT/studycorner.html[22m
+[2m10:23:30 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2memtyT/studycorner.html[22m
+[2m10:23:30 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2memtyT/studycorner.html[22m
