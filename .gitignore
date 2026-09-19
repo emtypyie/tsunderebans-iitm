@@ -22,6 +22,11 @@ src/views/meetups/region_exports_json_and_csv/csv/
 tmp/
 Teams/
 prototypes/
+emtyT/
 
 # Local QA harness scratch (kept out of the repo; regenerate as needed)
 qa-*.mjs
+
+# Dev server logs
+vite-dev.log
+vite-dev.err.log
