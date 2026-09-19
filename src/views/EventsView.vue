@@ -1,13 +1,12 @@
 <template>
   <div class="events-root">
     <main class="events-main">
-
       <!-- CAMPUS HERO BANNER -->
       <section class="hero-banner">
         <div class="hero-bg"></div>
         <div class="hero-content">
           <div class="hero-badge">LEARN / CONNECT / GROW</div>
-          <h1 class="hero-title">Events &amp;<br>Workshops</h1>
+          <h1 class="hero-title">Events &amp;<br />Workshops</h1>
           <p class="hero-subtitle">
             Hands-on tech bootcamps, speaker sessions, and regional community meetups.
           </p>
@@ -20,13 +19,13 @@
 
       <!-- TAB SWITCHER -->
       <div class="tab-wrapper">
-        <button 
+        <button
           :class="['tab-btn', activeTab === 'upcoming' ? 'tab-active' : 'tab-inactive']"
           @click="activeTab = 'upcoming'"
         >
           Upcoming Events
         </button>
-        <button 
+        <button
           :class="['tab-btn', activeTab === 'past' ? 'tab-active' : 'tab-inactive']"
           @click="activeTab = 'past'"
         >
@@ -41,13 +40,15 @@
             <h2 class="section-title">Upcoming <span>Events</span></h2>
             <div class="title-line"></div>
           </div>
-          <p class="section-subtitle">Upcoming hands-on workshops and discussions. Click to register.</p>
+          <p class="section-subtitle">
+            Upcoming hands-on workshops and discussions. Click to register.
+          </p>
         </div>
 
         <div class="cards-grid">
-          <article 
-            v-for="(ev, idx) in upcomingEvents" 
-            :key="idx" 
+          <article
+            v-for="(ev, idx) in upcomingEvents"
+            :key="idx"
             class="split-card"
             @click="openModal(ev)"
           >
@@ -59,7 +60,9 @@
               <div class="card-meta">
                 <div class="meta-item"><Calendar :size="12" class="gold-icon" /> {{ ev.date }}</div>
                 <div class="meta-item"><Clock :size="12" class="gold-icon" /> {{ ev.time }}</div>
-                <div class="meta-item"><MapPin :size="12" class="gold-icon" /> {{ ev.location }}</div>
+                <div class="meta-item">
+                  <MapPin :size="12" class="gold-icon" /> {{ ev.location }}
+                </div>
               </div>
             </div>
             <div class="card-right">
@@ -79,13 +82,15 @@
             <h2 class="section-title">Past <span>Events</span></h2>
             <div class="title-line"></div>
           </div>
-          <p class="section-subtitle">Recorded sessions and highlights. Click any card to watch on YouTube.</p>
+          <p class="section-subtitle">
+            Recorded sessions and highlights. Click any card to watch on YouTube.
+          </p>
         </div>
 
         <div class="cards-grid">
-          <article 
-            v-for="(p, idx) in pastEvents" 
-            :key="idx" 
+          <article
+            v-for="(p, idx) in pastEvents"
+            :key="idx"
             class="split-card"
             @click="openYoutube(p.ytUrl)"
           >
@@ -98,8 +103,13 @@
               </div>
               <div class="card-meta">
                 <div class="meta-item"><Calendar :size="12" class="gold-icon" /> {{ p.date }}</div>
-                <div class="meta-item"><Youtube :size="12" class="red-icon" /> <span class="dim">{{ p.actionText }}</span></div>
-                <div class="meta-item"><MapPin :size="12" class="gold-icon" /> {{ p.location }}</div>
+                <div class="meta-item">
+                  <Youtube :size="12" class="red-icon" />
+                  <span class="dim">{{ p.actionText }}</span>
+                </div>
+                <div class="meta-item">
+                  <MapPin :size="12" class="gold-icon" /> {{ p.location }}
+                </div>
               </div>
             </div>
             <div class="card-right">
@@ -111,7 +121,6 @@
           </article>
         </div>
       </section>
-
     </main>
 
     <!-- EVENT MODAL -->
@@ -125,9 +134,18 @@
         <p class="modal-desc">{{ activeModalEvent.desc }}</p>
 
         <div class="modal-info-box">
-          <div><div class="info-lbl">Date</div><div class="info-val">{{ activeModalEvent.date }}</div></div>
-          <div><div class="info-lbl">Time</div><div class="info-val">{{ activeModalEvent.time }}</div></div>
-          <div><div class="info-lbl">Location</div><div class="info-val truncate">{{ activeModalEvent.location }}</div></div>
+          <div>
+            <div class="info-lbl">Date</div>
+            <div class="info-val">{{ activeModalEvent.date }}</div>
+          </div>
+          <div>
+            <div class="info-lbl">Time</div>
+            <div class="info-val">{{ activeModalEvent.time }}</div>
+          </div>
+          <div>
+            <div class="info-lbl">Location</div>
+            <div class="info-val truncate">{{ activeModalEvent.location }}</div>
+          </div>
         </div>
 
         <form @submit.prevent="submitForm" class="modal-form">
@@ -173,11 +191,10 @@ const upcomingEvents = ref([
     location: 'Chai Kaapi, Gwalior',
     desc: 'Casual offline regional house meetup over chai and tech discussions.',
     img: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80',
-  }
+  },
 ]);
 
 const pastEvents = ref([
-  
   {
     title: 'Career in Research',
     badge: 'Recording',
@@ -185,7 +202,7 @@ const pastEvents = ref([
     actionText: 'Watch Recording',
     location: 'Virtual',
     ytUrl: '#',
-    img: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=500&q=80&auto=format&fit=crop'
+    img: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=500&q=80&auto=format&fit=crop',
   },
   {
     title: 'Bengaluru Student meetup',
@@ -194,7 +211,7 @@ const pastEvents = ref([
     actionText: 'Watch Recording',
     location: 'Talk over tables cafe',
     ytUrl: '#',
-    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911324/sundarbans/public/assets/pastevent/bengaluru_meetup_608_1.png'
+    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911324/sundarbans/public/assets/pastevent/bengaluru_meetup_608_1.png',
   },
   {
     title: 'Delhi Meetup 2026',
@@ -203,7 +220,7 @@ const pastEvents = ref([
     actionText: 'Watch Recording',
     location: 'Delhi',
     ytUrl: '#',
-    img: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?w=500&q=80&auto=format&fit=crop'
+    img: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?w=500&q=80&auto=format&fit=crop',
   },
   {
     title: 'Chennai Meetup 2026',
@@ -212,7 +229,7 @@ const pastEvents = ref([
     actionText: 'Watch Recording',
     location: 'Chennai',
     ytUrl: '#',
-    img: 'https://images.unsplash.com/photo-1529253355930-ddbe423a2ac7?w=500&q=80&auto=format&fit=crop'
+    img: 'https://images.unsplash.com/photo-1529253355930-ddbe423a2ac7?w=500&q=80&auto=format&fit=crop',
   },
   {
     title: 'Shakti Series — Episode 1',
@@ -221,7 +238,7 @@ const pastEvents = ref([
     actionText: 'Watch Recording',
     location: 'Virtual',
     ytUrl: '#',
-    img: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=500&q=80&auto=format&fit=crop'
+    img: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=500&q=80&auto=format&fit=crop',
   },
   {
     title: 'Navrang 2.0 — Celebrate Navratri',
@@ -230,7 +247,7 @@ const pastEvents = ref([
     actionText: 'Watch Recording',
     location: 'Virtual',
     ytUrl: '#',
-    img: 'https://images.unsplash.com/photo-1567591370762-b3db2e82eb3e?w=500&q=80&auto=format&fit=crop'
+    img: 'https://images.unsplash.com/photo-1567591370762-b3db2e82eb3e?w=500&q=80&auto=format&fit=crop',
   },
   {
     title: 'Pre-Independence Day Session',
@@ -239,7 +256,7 @@ const pastEvents = ref([
     actionText: 'Watch Recording',
     location: 'Virtual',
     ytUrl: '#',
-    img: 'https://images.unsplash.com/photo-1532375810709-75b1da00537c?w=500&q=80&auto=format&fit=crop'
+    img: 'https://images.unsplash.com/photo-1532375810709-75b1da00537c?w=500&q=80&auto=format&fit=crop',
   },
   {
     title: 'Paradox Champions League — Football Faceoff',
@@ -248,7 +265,7 @@ const pastEvents = ref([
     actionText: 'Watch Recording',
     location: 'Offline',
     ytUrl: '#',
-    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911324/sundarbans/public/assets/pastevent/2025-05-15_12-44-00_UTC.jpg'
+    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911324/sundarbans/public/assets/pastevent/2025-05-15_12-44-00_UTC.jpg',
   },
   {
     title: 'Ghost in the Firewall',
@@ -257,7 +274,7 @@ const pastEvents = ref([
     actionText: 'Watch Recording',
     location: 'Offline',
     ytUrl: '#',
-    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911323/sundarbans/public/assets/pastevent/2025-05-14_08-34-35_UTC.jpg'
+    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911323/sundarbans/public/assets/pastevent/2025-05-14_08-34-35_UTC.jpg',
   },
   {
     title: 'Hack Eclipse — 24-hour Hackathon',
@@ -266,7 +283,7 @@ const pastEvents = ref([
     actionText: 'Watch Recording',
     location: 'Virtual',
     ytUrl: '#',
-    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911322/sundarbans/public/assets/pastevent/2025-05-09_06-25-51_UTC.jpg'
+    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911322/sundarbans/public/assets/pastevent/2025-05-09_06-25-51_UTC.jpg',
   },
   {
     title: 'Paradox Badminton League 2.0',
@@ -275,7 +292,7 @@ const pastEvents = ref([
     actionText: 'Watch Recording',
     location: 'Virtual',
     ytUrl: '#',
-    img: 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=500&q=80&auto=format&fit=crop'
+    img: 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=500&q=80&auto=format&fit=crop',
   },
   {
     title: 'IPL Auction Showdown',
@@ -284,7 +301,7 @@ const pastEvents = ref([
     actionText: 'Watch Recording',
     location: 'Virtual',
     ytUrl: '#',
-    img: 'https://images.unsplash.com/photo-1540747913346-19212a4f3b1e?w=500&q=80&auto=format&fit=crop'
+    img: 'https://images.unsplash.com/photo-1540747913346-19212a4f3b1e?w=500&q=80&auto=format&fit=crop',
   },
   {
     title: 'FrameQuest — Photography Contest',
@@ -293,7 +310,7 @@ const pastEvents = ref([
     actionText: 'Watch Recording',
     location: 'Virtual',
     ytUrl: '#',
-    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911320/sundarbans/public/assets/pastevent/2025-02-10_10-25-33_UTC.jpg'
+    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911320/sundarbans/public/assets/pastevent/2025-02-10_10-25-33_UTC.jpg',
   },
   {
     title: 'Into the Shadows — Special Forces Talk',
@@ -302,7 +319,7 @@ const pastEvents = ref([
     actionText: 'Watch Recording',
     location: 'Virtual',
     ytUrl: '#',
-    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911321/sundarbans/public/assets/pastevent/2025-02-13_02-15-54_UTC.jpg'
+    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911321/sundarbans/public/assets/pastevent/2025-02-13_02-15-54_UTC.jpg',
   },
   {
     title: 'Python Odyssey',
@@ -311,7 +328,7 @@ const pastEvents = ref([
     actionText: 'Watch Recording',
     location: 'Virtual',
     ytUrl: '#',
-    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911319/sundarbans/public/assets/pastevent/2025-02-06_00-30-44_UTC.jpg'
+    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911319/sundarbans/public/assets/pastevent/2025-02-06_00-30-44_UTC.jpg',
   },
   {
     title: 'Mahabharata — Science Meets History',
@@ -320,7 +337,7 @@ const pastEvents = ref([
     actionText: 'Watch Recording',
     location: 'Virtual',
     ytUrl: '#',
-    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911318/sundarbans/public/assets/pastevent/2025-01-27_08-57-27_UTC.jpg'
+    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911318/sundarbans/public/assets/pastevent/2025-01-27_08-57-27_UTC.jpg',
   },
   {
     title: 'Frames of Freedom — Republic Day Photography',
@@ -329,7 +346,7 @@ const pastEvents = ref([
     actionText: 'Watch Recording',
     location: 'Virtual',
     ytUrl: '#',
-    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911317/sundarbans/public/assets/pastevent/2025-01-25_01-20-01_UTC.jpg'
+    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911317/sundarbans/public/assets/pastevent/2025-01-25_01-20-01_UTC.jpg',
   },
   {
     title: 'Navodaya — Voices of Power with Smriti Irani',
@@ -338,7 +355,7 @@ const pastEvents = ref([
     actionText: 'Watch Recording',
     location: 'Virtual',
     ytUrl: '#',
-    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911316/sundarbans/public/assets/pastevent/2024-12-05_11-31-48_UTC.jpg'
+    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911316/sundarbans/public/assets/pastevent/2024-12-05_11-31-48_UTC.jpg',
   },
   {
     title: 'Dinkar Ki Pratiksha — Open Mic',
@@ -347,7 +364,7 @@ const pastEvents = ref([
     actionText: 'Watch Recording',
     location: 'Virtual',
     ytUrl: '#',
-    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911315/sundarbans/public/assets/pastevent/2024-09-23_06-54-49_UTC.jpg'
+    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911315/sundarbans/public/assets/pastevent/2024-09-23_06-54-49_UTC.jpg',
   },
   {
     title: 'Sundarbans BS Talent Show',
@@ -356,7 +373,7 @@ const pastEvents = ref([
     actionText: 'Watch Recording',
     location: 'Virtual',
     ytUrl: '#',
-    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911314/sundarbans/public/assets/pastevent/2024-07-16_11-41-17_UTC.jpg'
+    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911314/sundarbans/public/assets/pastevent/2024-07-16_11-41-17_UTC.jpg',
   },
   {
     title: 'How to Improve Concentration — Swami Mukundanand',
@@ -365,9 +382,8 @@ const pastEvents = ref([
     actionText: 'Watch Recording',
     location: 'Virtual',
     ytUrl: '#',
-    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911313/sundarbans/public/assets/pastevent/2023-03-22_09-54-19_UTC.jpg'
-  }
-
+    img: 'https://res.cloudinary.com/l59gy0g2/image/upload/f_auto,q_auto:good,w_1000,c_limit/v1785911313/sundarbans/public/assets/pastevent/2023-03-22_09-54-19_UTC.jpg',
+  },
 ]);
 
 const isModalOpen = ref(false);
@@ -385,7 +401,7 @@ function openProposalModal() {
     date: 'Flexible',
     time: 'Flexible',
     location: 'IITM Online',
-    desc: 'Submit your ideas and proposals for Sundarbans events.'
+    desc: 'Submit your ideas and proposals for Sundarbans events.',
   });
 }
 
@@ -405,7 +421,7 @@ function submitForm() {
 .events-root {
   min-height: 100vh;
   background-color: #040907;
-  background-image: 
+  background-image:
     radial-gradient(circle at 45% 0%, rgba(22, 60, 42, 0.4) 0%, transparent 45%),
     radial-gradient(circle at 50% 25%, rgba(229, 168, 66, 0.04) 0%, transparent 40%),
     radial-gradient(circle at 85% 70%, rgba(16, 45, 32, 0.3) 0%, transparent 50%),
@@ -439,8 +455,13 @@ function submitForm() {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: 
-    linear-gradient(to right, rgba(4, 9, 7, 0.96) 0%, rgba(4, 9, 7, 0.78) 42%, rgba(4, 9, 7, 0.5) 100%),
+  background:
+    linear-gradient(
+      to right,
+      rgba(4, 9, 7, 0.96) 0%,
+      rgba(4, 9, 7, 0.78) 42%,
+      rgba(4, 9, 7, 0.5) 100%
+    ),
     linear-gradient(to bottom, rgba(4, 9, 7, 0.4) 0%, rgba(4, 9, 7, 0.85) 100%),
     url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=2000&q=80');
   background-size: cover;
@@ -499,8 +520,10 @@ function submitForm() {
   font-weight: 700;
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 .btn-primary:hover {
@@ -518,7 +541,9 @@ function submitForm() {
   font-weight: 500;
   backdrop-filter: blur(8px);
   cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .btn-secondary:hover {
@@ -607,13 +632,18 @@ function submitForm() {
   grid-template-columns: 7fr 5fr;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .split-card:hover {
   border-color: rgba(229, 168, 66, 0.45);
   transform: translateY(-3px);
-  box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.8), 0 0 16px rgba(229, 168, 66, 0.12);
+  box-shadow:
+    0 12px 28px -8px rgba(0, 0, 0, 0.8),
+    0 0 16px rgba(229, 168, 66, 0.12);
 }
 
 .card-left {
@@ -728,11 +758,21 @@ function submitForm() {
   color: #e5a842;
 }
 
-.gold-icon { color: #e5a842; }
-.red-icon { color: #f87171; }
-.fill-red { fill: #f87171; }
-.fill-curr { fill: currentColor; }
-.dim { color: #9ca3af; }
+.gold-icon {
+  color: #e5a842;
+}
+.red-icon {
+  color: #f87171;
+}
+.fill-red {
+  fill: #f87171;
+}
+.fill-curr {
+  fill: currentColor;
+}
+.dim {
+  color: #9ca3af;
+}
 
 /* MODAL */
 .modal-backdrop {
@@ -790,10 +830,23 @@ function submitForm() {
   margin-bottom: 1rem;
 }
 
-.info-lbl { font-size: 0.6rem; color: #9ca3af; text-transform: uppercase; }
-.info-val { font-size: 0.72rem; color: #ffffff; font-weight: 600; margin-top: 2px; }
+.info-lbl {
+  font-size: 0.6rem;
+  color: #9ca3af;
+  text-transform: uppercase;
+}
+.info-val {
+  font-size: 0.72rem;
+  color: #ffffff;
+  font-weight: 600;
+  margin-top: 2px;
+}
 
-.modal-form label { display: block; font-size: 0.72rem; margin-bottom: 0.3rem; }
+.modal-form label {
+  display: block;
+  font-size: 0.72rem;
+  margin-bottom: 0.3rem;
+}
 .modal-form input {
   width: 100%;
   background: #0d2018;
