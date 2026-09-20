@@ -23,7 +23,14 @@
       <rect x="0" y="0" width="720" height="250" fill="url(#nookGlow)" />
 
       <!-- Arched window with a crescent moon and a couple of stars -->
-      <g class="nook-line" stroke="#d5a63a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <g
+        class="nook-line"
+        stroke="#d5a63a"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        fill="none"
+      >
         <path d="M 132 96 V 172 H 268 V 96 A 68 68 0 0 1 132 96 Z" fill="rgba(10, 32, 25, 0.55)" />
         <path d="M 200 96 V 172" stroke-width="1.4" opacity="0.4" />
         <path d="M 132 134 H 268" stroke-width="1.4" opacity="0.4" />
@@ -52,7 +59,14 @@
       </g>
 
       <!-- Reading lamp leaning over the book -->
-      <g class="nook-line" stroke="#d5a63a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <g
+        class="nook-line"
+        stroke="#d5a63a"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        fill="none"
+      >
         <ellipse cx="140" cy="190" rx="22" ry="6" />
         <path d="M 140 190 V 138" />
         <path d="M 140 142 C 120 140 112 128 114 114" />
@@ -70,9 +84,22 @@
       </g>
 
       <!-- Open book, centre stage -->
-      <g class="nook-line" stroke="#d5a63a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
-        <path d="M 356 188 C 346 176 326 173 312 180 L 318 132 C 330 128 348 131 356 142 Z" fill="rgba(122, 158, 126, 0.08)" />
-        <path d="M 356 188 C 366 176 386 173 400 180 L 394 132 C 382 128 364 131 356 142 Z" fill="rgba(122, 158, 126, 0.08)" />
+      <g
+        class="nook-line"
+        stroke="#d5a63a"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        fill="none"
+      >
+        <path
+          d="M 356 188 C 346 176 326 173 312 180 L 318 132 C 330 128 348 131 356 142 Z"
+          fill="rgba(122, 158, 126, 0.08)"
+        />
+        <path
+          d="M 356 188 C 366 176 386 173 400 180 L 394 132 C 382 128 364 131 356 142 Z"
+          fill="rgba(122, 158, 126, 0.08)"
+        />
         <path d="M 356 142 V 188" />
         <g opacity="0.6" stroke-width="1.5" stroke="#e9c873">
           <path d="M 328 156 H 342" />
@@ -85,7 +112,14 @@
       </g>
 
       <!-- A small stack of books -->
-      <g class="nook-line" stroke="#d5a63a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <g
+        class="nook-line"
+        stroke="#d5a63a"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        fill="none"
+      >
         <rect x="424" y="172" width="64" height="16" rx="2" />
         <path d="M 430 176 H 482" stroke-width="1.4" opacity="0.5" />
         <rect x="430" y="154" width="60" height="18" rx="2" fill="rgba(122, 158, 126, 0.14)" />
@@ -95,7 +129,14 @@
       </g>
 
       <!-- Mug of tea with steam -->
-      <g class="nook-line" stroke="#d5a63a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <g
+        class="nook-line"
+        stroke="#d5a63a"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        fill="none"
+      >
         <path d="M 544 152 H 584 L 578 188 H 550 L 544 152 Z" fill="rgba(122, 158, 126, 0.1)" />
         <path d="M 584 160 C 602 160 602 182 580 182" />
         <g opacity="0.7" stroke-width="1.6" stroke="#e9c873">
