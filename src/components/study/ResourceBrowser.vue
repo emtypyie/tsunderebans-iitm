@@ -39,31 +39,31 @@
             <span class="rb-progress-fill" :style="{ width: progressPct + '%' }"></span>
           </div>
           <ol class="rb-steps">
-          <li v-for="s in steps" :key="s.n">
-            <button
-              v-if="s.n <= step"
-              type="button"
-              class="rb-step"
-              :class="{ 'rb-step--active': s.n === step, 'rb-step--done': s.n < step }"
-              :aria-current="s.n === step ? 'step' : undefined"
-              @click="goToStep(s.n)"
-            >
-              <span class="rb-step-num">{{ s.n }}</span>
-              <span class="rb-step-body">
-                <span class="rb-step-label">{{ s.label }}</span>
-                <span v-if="s.n < step && stepSummary[s.n]" class="rb-step-value">{{
-                  stepSummary[s.n]
-                }}</span>
+            <li v-for="s in steps" :key="s.n">
+              <button
+                v-if="s.n <= step"
+                type="button"
+                class="rb-step"
+                :class="{ 'rb-step--active': s.n === step, 'rb-step--done': s.n < step }"
+                :aria-current="s.n === step ? 'step' : undefined"
+                @click="goToStep(s.n)"
+              >
+                <span class="rb-step-num">{{ s.n }}</span>
+                <span class="rb-step-body">
+                  <span class="rb-step-label">{{ s.label }}</span>
+                  <span v-if="s.n < step && stepSummary[s.n]" class="rb-step-value">{{
+                    stepSummary[s.n]
+                  }}</span>
+                </span>
+              </button>
+              <span v-else class="rb-step rb-step--locked" aria-hidden="true">
+                <span class="rb-step-num">{{ s.n }}</span>
+                <span class="rb-step-body">
+                  <span class="rb-step-label">{{ s.label }}</span>
+                </span>
               </span>
-            </button>
-            <span v-else class="rb-step rb-step--locked" aria-hidden="true">
-              <span class="rb-step-num">{{ s.n }}</span>
-              <span class="rb-step-body">
-                <span class="rb-step-label">{{ s.label }}</span>
-              </span>
-            </span>
-          </li>
-        </ol>
+            </li>
+          </ol>
         </div>
         <button v-if="branch" type="button" class="btn btn--text rb-reset" @click="resetAll">
           Start over
@@ -82,11 +82,7 @@
           </p>
 
           <template v-if="globalGroups.length">
-            <section
-              v-for="(g, gi) in globalGroups"
-              :key="g.subject.key"
-              class="rb-global-group"
-            >
+            <section v-for="(g, gi) in globalGroups" :key="g.subject.key" class="rb-global-group">
               <h3 class="rb-global-label">
                 <span>
                   {{ g.label }}
@@ -132,178 +128,188 @@
         </div>
 
         <Transition v-else name="rb-step" mode="out-in">
-        <!-- ── 1. BRANCH ─────────────────────────────────────────── -->
-        <div v-if="step === 1" key="1" class="rb-step-pane">
-          <h2 class="rb-step-title" id="rb-head-1">Choose your branch</h2>
-          <p class="rb-step-sub">
-            Each programme has its own subjects, so start with the branch you are enrolled in.
-          </p>
-          <div class="rb-branch-grid" role="group" aria-labelledby="rb-head-1">
-            <button
-              v-for="(b, bi) in BRANCHES"
-              :key="b.key"
-              type="button"
-              class="rb-branch rb-card-enter"
-              :class="{ 'rb-branch--selected': branch === b.key }"
-              :style="{ animationDelay: bi * 45 + 'ms' }"
-              :aria-pressed="branch === b.key"
-              @click="chooseBranch(b.key)"
-            >
-              <component
-                :is="branchIcons[b.key]"
-                class="rb-branch-icon"
-                :size="20"
-                :stroke-width="1.7"
-                aria-hidden="true"
-              />
-              <span class="rb-branch-code">{{ b.short }}</span>
-              <span class="rb-branch-name">{{ b.name }}</span>
-              <span class="rb-branch-count">{{ branchSubjectCount(b.key) }} subjects</span>
-            </button>
-          </div>
-        </div>
-
-<!-- ── 2. LEVEL ──────────────────────────────────────────── -->
-        <div v-else-if="step === 2" key="2" class="rb-step-pane">
-          <h2 class="rb-step-title" id="rb-head-2">Choose your level</h2>
-          <p class="rb-step-sub">
-            {{ currentBranch.name }} runs three levels — pick where you are.
-          </p>
-          <div class="rb-level-grid" role="group" aria-labelledby="rb-head-2">
-            <button
-              v-for="(l, li) in LEVELS"
-              :key="l.key"
-              type="button"
-              class="rb-level rb-card-enter"
-              :class="{ 'rb-level--selected': level === l.key }"
-              :style="{ animationDelay: li * 45 + 'ms' }"
-              :aria-pressed="level === l.key"
-              @click="chooseLevel(l.key)"
-            >
-              <component
-                :is="levelIcons[l.key]"
-                class="rb-level-icon"
-                :size="20"
-                :stroke-width="1.7"
-                aria-hidden="true"
-              />
-              <span class="rb-level-name">{{ l.title }}</span>
-              <span class="rb-level-count">{{ levelStat(l.key) }}</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- ── 3. SUBJECT ────────────────────────────────────────── -->
-        <div v-else-if="step === 3" key="3" class="rb-step-pane">
-          <h2 class="rb-step-title" id="rb-head-3">Choose a subject</h2>
-          <p class="rb-step-sub">
-            {{ currentLevel.title }} · {{ currentBranch.name }} — search or pick below.
-          </p>
-
-          <div class="rb-subject-search">
-            <div class="rb-search-field">
-              <Search class="rb-search-icon" :size="17" :stroke-width="1.9" aria-hidden="true" />
-              <input
-                id="rb-subject-search"
-                v-model="search"
-                type="search"
-                class="form-input rb-search-input"
-                placeholder="Search subjects or notes…"
-                autocomplete="off"
-              />
+          <!-- ── 1. BRANCH ─────────────────────────────────────────── -->
+          <div v-if="step === 1" key="1" class="rb-step-pane">
+            <h2 class="rb-step-title" id="rb-head-1">Choose your branch</h2>
+            <p class="rb-step-sub">
+              Each programme has its own subjects, so start with the branch you are enrolled in.
+            </p>
+            <div class="rb-branch-grid" role="group" aria-labelledby="rb-head-1">
               <button
-                v-if="search"
+                v-for="(b, bi) in BRANCHES"
+                :key="b.key"
                 type="button"
-                class="rb-search-clear"
-                aria-label="Clear search"
-                @click="search = ''"
+                class="rb-branch rb-card-enter"
+                :class="{ 'rb-branch--selected': branch === b.key }"
+                :style="{ animationDelay: bi * 45 + 'ms' }"
+                :aria-pressed="branch === b.key"
+                @click="chooseBranch(b.key)"
               >
-                <X :size="15" :stroke-width="2" />
+                <component
+                  :is="branchIcons[b.key]"
+                  class="rb-branch-icon"
+                  :size="20"
+                  :stroke-width="1.7"
+                  aria-hidden="true"
+                />
+                <span class="rb-branch-code">{{ b.short }}</span>
+                <span class="rb-branch-name">{{ b.name }}</span>
+                <span class="rb-branch-count">{{ branchSubjectCount(b.key) }} subjects</span>
               </button>
             </div>
-            <p class="rb-search-hint">
-              Search also matches notes and past papers inside a subject.
+          </div>
+
+          <!-- ── 2. LEVEL ──────────────────────────────────────────── -->
+          <div v-else-if="step === 2" key="2" class="rb-step-pane">
+            <h2 class="rb-step-title" id="rb-head-2">Choose your level</h2>
+            <p class="rb-step-sub">
+              {{ currentBranch.name }} runs three levels — pick where you are.
             </p>
+            <div class="rb-level-grid" role="group" aria-labelledby="rb-head-2">
+              <button
+                v-for="(l, li) in LEVELS"
+                :key="l.key"
+                type="button"
+                class="rb-level rb-card-enter"
+                :class="{ 'rb-level--selected': level === l.key }"
+                :style="{ animationDelay: li * 45 + 'ms' }"
+                :aria-pressed="level === l.key"
+                @click="chooseLevel(l.key)"
+              >
+                <component
+                  :is="levelIcons[l.key]"
+                  class="rb-level-icon"
+                  :size="20"
+                  :stroke-width="1.7"
+                  aria-hidden="true"
+                />
+                <span class="rb-level-name">{{ l.title }}</span>
+                <span class="rb-level-count">{{ levelStat(l.key) }}</span>
+              </button>
+            </div>
           </div>
 
-          <div
-            v-if="visibleCore.length"
-            class="rb-subject-grid"
-            role="group"
-            aria-labelledby="rb-head-3"
-          >
-            <button
-              v-for="(subject, si) in visibleCore"
-              :key="subjectKey(subject)"
-              type="button"
-              class="rb-subject rb-card-enter"
-              :style="{ animationDelay: si * 45 + 'ms' }"
-              :aria-pressed="isSelected(subject)"
-              @click="selectSubject(subject)"
-            >
-              <span class="rb-subject-code">{{ subject.code }}</span>
-              <span class="rb-subject-name">{{ subject.name }}</span>
-              <ChevronRight class="rb-subject-go" :size="15" :stroke-width="2" aria-hidden="true" />
-            </button>
-          </div>
+          <!-- ── 3. SUBJECT ────────────────────────────────────────── -->
+          <div v-else-if="step === 3" key="3" class="rb-step-pane">
+            <h2 class="rb-step-title" id="rb-head-3">Choose a subject</h2>
+            <p class="rb-step-sub">
+              {{ currentLevel.title }} · {{ currentBranch.name }} — search or pick below.
+            </p>
 
-          <div v-for="group in visibleElectiveGroups" :key="group.label" class="rb-elective">
-            <h3 class="rb-elective-label">
-              {{ group.label }}
-              <span v-if="group.subjects.length" class="rb-group-count">{{
-                group.subjects.length
-              }}</span>
-            </h3>
+            <div class="rb-subject-search">
+              <div class="rb-search-field">
+                <Search class="rb-search-icon" :size="17" :stroke-width="1.9" aria-hidden="true" />
+                <input
+                  id="rb-subject-search"
+                  v-model="search"
+                  type="search"
+                  class="form-input rb-search-input"
+                  placeholder="Search subjects or notes…"
+                  autocomplete="off"
+                />
+                <button
+                  v-if="search"
+                  type="button"
+                  class="rb-search-clear"
+                  aria-label="Clear search"
+                  @click="search = ''"
+                >
+                  <X :size="15" :stroke-width="2" />
+                </button>
+              </div>
+              <p class="rb-search-hint">
+                Search also matches notes and past papers inside a subject.
+              </p>
+            </div>
+
             <div
-              v-if="group.subjects.length"
+              v-if="visibleCore.length"
               class="rb-subject-grid"
               role="group"
-              :aria-label="`${group.label} subjects`"
+              aria-labelledby="rb-head-3"
             >
               <button
-                v-for="(sub, si) in group.subjects"
-                :key="subjectKey(sub)"
+                v-for="(subject, si) in visibleCore"
+                :key="subjectKey(subject)"
                 type="button"
                 class="rb-subject rb-card-enter"
                 :style="{ animationDelay: si * 45 + 'ms' }"
-                :class="{ 'rb-subject--elective': !sub.code }"
-                :aria-pressed="isSelected(sub)"
-                @click="selectSubject(sub)"
+                :aria-pressed="isSelected(subject)"
+                @click="selectSubject(subject)"
               >
-                <span v-if="sub.code" class="rb-subject-code">{{ sub.code }}</span>
-                <span class="rb-subject-name">{{ sub.name }}</span>
-                <ChevronRight class="rb-subject-go" :size="15" :stroke-width="2" aria-hidden="true" />
+                <span class="rb-subject-code">{{ subject.code }}</span>
+                <span class="rb-subject-name">{{ subject.name }}</span>
+                <ChevronRight
+                  class="rb-subject-go"
+                  :size="15"
+                  :stroke-width="2"
+                  aria-hidden="true"
+                />
               </button>
             </div>
-            <p v-else class="rb-note rb-note--rest">{{ group.note }}</p>
+
+            <div v-for="group in visibleElectiveGroups" :key="group.label" class="rb-elective">
+              <h3 class="rb-elective-label">
+                {{ group.label }}
+                <span v-if="group.subjects.length" class="rb-group-count">{{
+                  group.subjects.length
+                }}</span>
+              </h3>
+              <div
+                v-if="group.subjects.length"
+                class="rb-subject-grid"
+                role="group"
+                :aria-label="`${group.label} subjects`"
+              >
+                <button
+                  v-for="(sub, si) in group.subjects"
+                  :key="subjectKey(sub)"
+                  type="button"
+                  class="rb-subject rb-card-enter"
+                  :style="{ animationDelay: si * 45 + 'ms' }"
+                  :class="{ 'rb-subject--elective': !sub.code }"
+                  :aria-pressed="isSelected(sub)"
+                  @click="selectSubject(sub)"
+                >
+                  <span v-if="sub.code" class="rb-subject-code">{{ sub.code }}</span>
+                  <span class="rb-subject-name">{{ sub.name }}</span>
+                  <ChevronRight
+                    class="rb-subject-go"
+                    :size="15"
+                    :stroke-width="2"
+                    aria-hidden="true"
+                  />
+                </button>
+              </div>
+              <p v-else class="rb-note rb-note--rest">{{ group.note }}</p>
+            </div>
+
+            <p v-if="query && !totalVisibleSubjects" class="rb-note">
+              No subject matches “{{ search }}”.
+              <button type="button" class="btn btn--text" @click="search = ''">Clear search</button>
+            </p>
           </div>
 
-          <p v-if="query && !totalVisibleSubjects" class="rb-note">
-            No subject matches “{{ search }}”.
-            <button type="button" class="btn btn--text" @click="search = ''">Clear search</button>
-          </p>
-        </div>
-
-        <!-- ── 4. RESOURCES ──────────────────────────────────────── -->
-        <div v-else-if="step === 4" key="4" class="rb-step-pane">
-          <h2 class="rb-step-title" id="rb-head-4">Resources</h2>
-          <template v-if="subject">
-            <ResourceResults
-              :subject="subject"
-              :search="search"
-              :resource-type="resourceType"
-              :expanded-groups="expandedGroups"
-              :preview-count="PREVIEW_COUNT"
-              @update:resource-type="setResourceType"
-              @toggle-group="toggleGroup"
-              @clear-subject="step = 3"
-            />
-          </template>
-          <p v-else class="rb-empty rb-empty--start">
-            <BookOpen :size="26" :stroke-width="1.6" aria-hidden="true" />
-            <span>Choose a subject above to see its notes, lectures and past papers.</span>
-          </p>
-        </div>
+          <!-- ── 4. RESOURCES ──────────────────────────────────────── -->
+          <div v-else-if="step === 4" key="4" class="rb-step-pane">
+            <h2 class="rb-step-title" id="rb-head-4">Resources</h2>
+            <template v-if="subject">
+              <ResourceResults
+                :subject="subject"
+                :search="search"
+                :resource-type="resourceType"
+                :expanded-groups="expandedGroups"
+                :preview-count="PREVIEW_COUNT"
+                @update:resource-type="setResourceType"
+                @toggle-group="toggleGroup"
+                @clear-subject="step = 3"
+              />
+            </template>
+            <p v-else class="rb-empty rb-empty--start">
+              <BookOpen :size="26" :stroke-width="1.6" aria-hidden="true" />
+              <span>Choose a subject above to see its notes, lectures and past papers.</span>
+            </p>
+          </div>
         </Transition>
       </div>
     </div>
@@ -416,13 +422,19 @@ const globalGroups = computed(() => {
   if (!q) return [];
   const groups = [];
   globalCatalog.value.forEach((subject) => {
-    const nameMatch = String(subject.name || '').toLowerCase().includes(q);
-    const codeMatch = String(subject.code || '').toLowerCase().includes(q);
+    const nameMatch = String(subject.name || '')
+      .toLowerCase()
+      .includes(q);
+    const codeMatch = String(subject.code || '')
+      .toLowerCase()
+      .includes(q);
     const matchedBySubject = nameMatch || codeMatch;
     const items = [];
     RESOURCE_TYPES.forEach((type) => {
       resourcesFor(subject.code)[type].forEach((item, i) => {
-        const titleMatch = String(item.title || '').toLowerCase().includes(q);
+        const titleMatch = String(item.title || '')
+          .toLowerCase()
+          .includes(q);
         if (matchedBySubject || titleMatch) {
           items.push(decorateGlobalItem(item, type, i, subject.key));
         }
@@ -431,9 +443,7 @@ const globalGroups = computed(() => {
     if (items.length) {
       groups.push({
         subject,
-        label: subject.code
-          ? `${subject.code} · ${subject.name}`
-          : subject.name,
+        label: subject.code ? `${subject.code} · ${subject.name}` : subject.name,
         match: matchedBySubject ? 'subject' : 'items',
         items,
       });
@@ -520,7 +530,10 @@ const isSelected = (s) => Boolean(subject.value && subjectKey(s) === subjectKey(
 function levelStat(levelKey) {
   const { core, electives = [] } = subjectsFor(branch.value, levelKey);
   const coreN = core.length;
-  const electiveN = electives.reduce((n, group) => n + (group.subjects ? group.subjects.length : 0), 0);
+  const electiveN = electives.reduce(
+    (n, group) => n + (group.subjects ? group.subjects.length : 0),
+    0
+  );
   const parts = [`${coreN} core subject${coreN === 1 ? '' : 's'}`];
   if (electiveN) parts.push(`${electiveN} elective${electiveN === 1 ? '' : 's'}`);
   return parts.join(' · ');
@@ -614,8 +627,7 @@ function focusStep(headingId) {
   if (!el) return;
   const rect = el.getBoundingClientRect();
   const viewportH = window.innerHeight || document.documentElement.clientHeight;
-  const visible =
-    rect.top >= NAV_HEADROOM - 1 && rect.bottom <= viewportH - NAV_HEADROOM;
+  const visible = rect.top >= NAV_HEADROOM - 1 && rect.bottom <= viewportH - NAV_HEADROOM;
   if (!visible) {
     el.scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth', block: 'nearest' });
   }

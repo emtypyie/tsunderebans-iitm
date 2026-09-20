@@ -6,7 +6,9 @@
            (container) rather than the viewport so the whole word stays on
            screen at every width. -->
       <router-link to="/" class="footer-wordmark" aria-label="Sundarbans House — go to home">
-        <span v-for="(ch, i) in wordmark" :key="i" class="wm-char" aria-hidden="true">{{ ch }}</span>
+        <span v-for="(ch, i) in wordmark" :key="i" class="wm-char" aria-hidden="true">{{
+          ch
+        }}</span>
       </router-link>
 
       <div class="footer-grid">
@@ -77,7 +79,9 @@
           Affiliated to Indian Institute Of Technology, Madras
         </p>
         <div class="fbl">
-          <span class="fcopy">© 2026 Sundarbans House.<br />Maintained by WebOps Team, Sundarbans House.</span>
+          <span class="fcopy"
+            >© 2026 Sundarbans House.<br />Maintained by WebOps Team, Sundarbans House.</span
+          >
           <a href="#">Privacy</a>
           <a href="#">Terms</a>
           <router-link to="/contact">Contact</router-link>
