@@ -8,9 +8,10 @@
           class="ql-card"
           :href="link.href"
           v-bind="link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {}"
+          @click.prevent="link.action ? link.action() : null"
         >
           <span class="ql-icon-wrap">
-            <component :is="link.icon" :size="22" :stroke-width="1.5" aria-hidden="true" />
+            <component :is="link.icon" :size="18" :stroke-width="1.5" aria-hidden="true" />
           </span>
           <div class="ql-text">
             <h3 class="ql-title">{{ link.title }}</h3>
@@ -20,11 +21,58 @@
         </a>
       </div>
     </div>
+
+    <Teleport to="body">
+      <div v-if="showHandbookModal" class="hb-overlay" @click="showHandbookModal = false">
+        <div class="hb-modal" @click.stop>
+          <h3 class="hb-title">Select your branch</h3>
+          <div class="hb-options">
+            <a
+              v-for="branch in branches"
+              :key="branch.label"
+              class="hb-option"
+              :href="branch.href"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="showHandbookModal = false"
+            >
+              <span class="hb-branch">{{ branch.label }}</span>
+              <span class="hb-name">{{ branch.name }}</span>
+            </a>
+          </div>
+          <button class="hb-close" @click="showHandbookModal = false">Close</button>
+        </div>
+      </div>
+    </Teleport>
   </section>
 </template>
 
 <script setup>
-import { BookOpen, BarChart3, Brain, LineChart, Code2, MessageSquare, ArrowRight } from 'lucide-vue-next';
+import { ref } from 'vue';
+import {
+  BookOpen,
+  BarChart3,
+  Brain,
+  LineChart,
+  Code2,
+  MessageSquare,
+  Calendar,
+  FileText,
+  ArrowRight,
+} from 'lucide-vue-next';
+
+const showHandbookModal = ref(false);
+
+const branches = [
+  { label: 'DS', name: 'Data Science', href: 'https://study.iitm.ac.in/ds' },
+  { label: 'ES', name: 'Electronic Systems', href: 'https://study.iitm.ac.in/es' },
+  { label: 'AE', name: 'Aeronautics & Space', href: 'https://study.iitm.ac.in/ae' },
+  { label: 'MG', name: 'Management & DS', href: 'https://study.iitm.ac.in/mg' },
+];
+
+const openHandbook = () => {
+  showHandbookModal.value = true;
+};
 
 const links = [
   {
@@ -66,35 +114,51 @@ const links = [
     icon: MessageSquare,
     title: 'Discourse Forum',
     description: 'Community discussions and peer help',
-    href: 'https://discourse.oncampus.in/',
+    href: 'https://discourse.onlinedegree.iitm.ac.in/',
     external: true,
+  },
+  {
+    icon: Calendar,
+    title: 'Course Planner',
+    description: 'Plan your semester courses and track progress',
+    href: 'https://course-planner-140256174016.asia-south1.run.app/login',
+    external: true,
+  },
+  {
+    icon: FileText,
+    title: 'Student Handbook',
+    description: 'Official handbook for your branch',
+    action: openHandbook,
   },
 ];
 </script>
 
 <style scoped>
 .ql-section {
-  padding: 1.25rem 1.5rem 0;
-  max-width: 72rem;
-  margin: 0 auto;
+  padding: 1.25rem 0 0;
 }
 
 .ql-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
+  gap: 0.625rem;
 }
 
 .ql-card {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem 1.25rem;
-  border-radius: 0.75rem;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.625rem;
   border: 1px solid rgba(255, 255, 255, 0.06);
   background: rgba(255, 255, 255, 0.03);
   text-decoration: none;
-  transition: border-color 0.2s, background 0.2s;
+  min-width: 0;
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
 }
 
 .ql-card:hover {
@@ -107,9 +171,9 @@ const links = [
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.4rem;
   background: rgba(212, 175, 55, 0.1);
   color: var(--accent);
 }
@@ -139,7 +203,9 @@ const links = [
   flex-shrink: 0;
   color: rgba(255, 255, 255, 0.4);
   opacity: 0;
-  transition: opacity 0.2s, color 0.2s;
+  transition:
+    opacity 0.2s,
+    color 0.2s;
 }
 
 .ql-card:hover .ql-arrow {
@@ -161,5 +227,90 @@ const links = [
   .ql-desc {
     white-space: normal;
   }
+}
+
+/* Modal */
+.hb-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+.hb-modal {
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  width: 90%;
+  max-width: 22rem;
+}
+
+.hb-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.hb-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.hb-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  text-decoration: none;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.hb-option:hover {
+  border-color: var(--accent);
+  background: rgba(212, 175, 55, 0.08);
+}
+
+.hb-branch {
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--accent);
+  min-width: 2rem;
+}
+
+.hb-name {
+  font-size: 0.85rem;
+  color: #fff;
+}
+
+.hb-close {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    color 0.2s;
+}
+
+.hb-close:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
 }
 </style>
