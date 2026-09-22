@@ -44,26 +44,31 @@ useScrollReveal();
 </script>
 
 <style scoped>
-/* The stepper below is the real content, so the hero earns a touch more
-   vertical trim than the default compact PageHero gives it — enough to keep
-   "Choose your branch" reachable in one glance. */
+/* The stepper below is the real content — hero is a signpost, not a billboard.
+   Trim hard so "Choose your branch" is reachable in one glance. */
 .study-hero.page-hero--compact {
-  padding: 4.75rem 0 2.25rem;
+  padding: 3.5rem 0 1.25rem;
 }
 
 .study-hero.page-hero--compact h1 {
-  font-size: clamp(1.7rem, 3vw, 2.5rem);
-  margin-bottom: 0.5rem;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  margin-bottom: 0.35rem;
 }
 
 .study-hero.page-hero--compact p {
-  font-size: 0.88rem;
+  font-size: 0.82rem;
+  line-height: 1.6;
   margin-bottom: 0;
+  max-width: 38rem;
+}
+
+.study-hero.page-hero--compact .breadcrumb-nav {
+  margin-bottom: 0.6rem;
 }
 
 @media (max-width: 768px) {
   .study-hero.page-hero--compact {
-    padding: 4.25rem 0 1.75rem;
+    padding: 3rem 0 1rem;
   }
 }
 </style>
